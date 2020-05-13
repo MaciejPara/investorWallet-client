@@ -1,12 +1,20 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
+import "./styles/index.css";
 import * as serviceWorker from "./serviceWorker";
+import Loader from "./components/loader";
+import { configureStore } from "./redux/store";
+import { Provider } from "react-redux";
+
+const App = React.lazy(() => import(/* webpackChunkName: "App" */ "./App"));
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <Provider store={configureStore()}>
+            <Suspense fallback={<Loader />}>
+                <App />
+            </Suspense>
+        </Provider>
     </React.StrictMode>,
     document.getElementById("root")
 );
