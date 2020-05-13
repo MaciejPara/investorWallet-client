@@ -15,7 +15,7 @@ const ViewError = React.lazy(() => import("./views/error"));
 const ViewLogin = React.lazy(() => import("./views/login"));
 const ViewRegister = React.lazy(() => import("./views/register"));
 
-const AuthRoute = ({ component: Component, authUser, ...rest }) => {
+const AuthRoute = ({ component: Component, authUser, basePath, ...rest }) => {
     return (
         <Route
             {...rest}
@@ -25,7 +25,7 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => {
                 ) : (
                     <Redirect
                         to={{
-                            pathname: "/login",
+                            pathname: `${basePath}/login`,
                             state: { from: props.location },
                         }}
                     />
@@ -39,6 +39,7 @@ const App = (props) => {
     const { loginUser } = props;
 
     const store = useStore().getState();
+    const { basePath } = store.authUser;
 
     return (
         <div className="App">
@@ -46,31 +47,33 @@ const App = (props) => {
                 <Router>
                     <Switch>
                         <AuthRoute
-                            path="/app"
+                            path={`${basePath}/app`}
                             authUser={loginUser}
                             component={ViewApp}
+                            basePath={basePath}
                         />
+
                         <Route
-                            path="/"
+                            path={`${basePath}/`}
                             exact
                             render={(props) => <ViewMain {...props} />}
                         />
                         <Route
-                            path="/login"
+                            path={`${basePath}/login`}
                             exact
                             render={(props) => <ViewLogin {...props} />}
                         />
                         <Route
-                            path="/register"
+                            path={`${basePath}/register`}
                             exact
                             render={(props) => <ViewRegister {...props} />}
                         />
                         <Route
-                            path="/error"
+                            path={`${basePath}/error`}
                             exact
                             render={(props) => <ViewError {...props} />}
                         />
-                        <Redirect to="/error" />
+                        <Redirect to={`${basePath}/error`} />
                     </Switch>
                 </Router>
             </Suspense>
