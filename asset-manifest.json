@@ -1,12 +1,12 @@
 {
   "files": {
-    "App.js": "/investorWallet-client/static/js/App.976fcb00.chunk.js",
-    "App.js.map": "/investorWallet-client/static/js/App.976fcb00.chunk.js.map",
+    "App.js": "/investorWallet-client/static/js/App.407b37b6.chunk.js",
+    "App.js.map": "/investorWallet-client/static/js/App.407b37b6.chunk.js.map",
     "main.css": "/investorWallet-client/static/css/main.27a9463f.chunk.css",
-    "main.js": "/investorWallet-client/static/js/main.8bab0ac3.chunk.js",
-    "main.js.map": "/investorWallet-client/static/js/main.8bab0ac3.chunk.js.map",
-    "runtime-main.js": "/investorWallet-client/static/js/runtime-main.84fb97a6.js",
-    "runtime-main.js.map": "/investorWallet-client/static/js/runtime-main.84fb97a6.js.map",
+    "main.js": "/investorWallet-client/static/js/main.df59524c.chunk.js",
+    "main.js.map": "/investorWallet-client/static/js/main.df59524c.chunk.js.map",
+    "runtime-main.js": "/investorWallet-client/static/js/runtime-main.b4ac2a40.js",
+    "runtime-main.js.map": "/investorWallet-client/static/js/runtime-main.b4ac2a40.js.map",
     "static/js/3.9783a3e0.chunk.js": "/investorWallet-client/static/js/3.9783a3e0.chunk.js",
     "static/js/3.9783a3e0.chunk.js.map": "/investorWallet-client/static/js/3.9783a3e0.chunk.js.map",
     "static/js/4.e1c3fba8.chunk.js": "/investorWallet-client/static/js/4.e1c3fba8.chunk.js",
@@ -22,16 +22,16 @@
     "static/js/9.ff8ec4a1.chunk.js": "/investorWallet-client/static/js/9.ff8ec4a1.chunk.js",
     "static/js/9.ff8ec4a1.chunk.js.map": "/investorWallet-client/static/js/9.ff8ec4a1.chunk.js.map",
     "index.html": "/investorWallet-client/index.html",
-    "precache-manifest.3fcaebb2592c2c7319d250782dbb3f7a.js": "/investorWallet-client/precache-manifest.3fcaebb2592c2c7319d250782dbb3f7a.js",
+    "precache-manifest.080b33e2b31ad23530e88f2cd30a1ce6.js": "/investorWallet-client/precache-manifest.080b33e2b31ad23530e88f2cd30a1ce6.js",
     "service-worker.js": "/investorWallet-client/service-worker.js",
     "static/css/main.27a9463f.chunk.css.map": "/investorWallet-client/static/css/main.27a9463f.chunk.css.map",
     "static/js/3.9783a3e0.chunk.js.LICENSE.txt": "/investorWallet-client/static/js/3.9783a3e0.chunk.js.LICENSE.txt",
     "static/media/loader.gif": "/investorWallet-client/static/media/loader.f6f2de36.gif"
   },
   "entrypoints": [
-    "static/js/runtime-main.84fb97a6.js",
+    "static/js/runtime-main.b4ac2a40.js",
     "static/js/3.9783a3e0.chunk.js",
     "static/css/main.27a9463f.chunk.css",
-    "static/js/main.8bab0ac3.chunk.js"
+    "static/js/main.df59524c.chunk.js"
   ]
 }
