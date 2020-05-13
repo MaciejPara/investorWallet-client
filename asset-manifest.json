@@ -3,8 +3,8 @@
     "App.js": "/investorWallet-client/static/js/App.407b37b6.chunk.js",
     "App.js.map": "/investorWallet-client/static/js/App.407b37b6.chunk.js.map",
     "main.css": "/investorWallet-client/static/css/main.27a9463f.chunk.css",
-    "main.js": "/investorWallet-client/static/js/main.df59524c.chunk.js",
-    "main.js.map": "/investorWallet-client/static/js/main.df59524c.chunk.js.map",
+    "main.js": "/investorWallet-client/static/js/main.23e7d367.chunk.js",
+    "main.js.map": "/investorWallet-client/static/js/main.23e7d367.chunk.js.map",
     "runtime-main.js": "/investorWallet-client/static/js/runtime-main.b4ac2a40.js",
     "runtime-main.js.map": "/investorWallet-client/static/js/runtime-main.b4ac2a40.js.map",
     "static/js/3.9783a3e0.chunk.js": "/investorWallet-client/static/js/3.9783a3e0.chunk.js",
@@ -22,7 +22,7 @@
     "static/js/9.ff8ec4a1.chunk.js": "/investorWallet-client/static/js/9.ff8ec4a1.chunk.js",
     "static/js/9.ff8ec4a1.chunk.js.map": "/investorWallet-client/static/js/9.ff8ec4a1.chunk.js.map",
     "index.html": "/investorWallet-client/index.html",
-    "precache-manifest.080b33e2b31ad23530e88f2cd30a1ce6.js": "/investorWallet-client/precache-manifest.080b33e2b31ad23530e88f2cd30a1ce6.js",
+    "precache-manifest.08175c9bdc69d57b14334bb8af3e13b5.js": "/investorWallet-client/precache-manifest.08175c9bdc69d57b14334bb8af3e13b5.js",
     "service-worker.js": "/investorWallet-client/service-worker.js",
     "static/css/main.27a9463f.chunk.css.map": "/investorWallet-client/static/css/main.27a9463f.chunk.css.map",
     "static/js/3.9783a3e0.chunk.js.LICENSE.txt": "/investorWallet-client/static/js/3.9783a3e0.chunk.js.LICENSE.txt",
@@ -32,6 +32,6 @@
     "static/js/runtime-main.b4ac2a40.js",
     "static/js/3.9783a3e0.chunk.js",
     "static/css/main.27a9463f.chunk.css",
-    "static/js/main.df59524c.chunk.js"
+    "static/js/main.23e7d367.chunk.js"
   ]
 }
