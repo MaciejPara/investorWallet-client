@@ -4,7 +4,7 @@ const INIT_STATE = {
     user: localStorage.getItem("investorWalletUserId"),
     error: "",
     basePath:
-        process.env.NODE_ENV === "development" ? "" : "investorWallet-client",
+        process.env.NODE_ENV === "development" ? "" : "/investorWallet-client",
 };
 
 export default (state = INIT_STATE, action) => {
