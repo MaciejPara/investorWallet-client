@@ -11,16 +11,16 @@
  * See https://goo.gl/2aRDsh
  */
 
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+
 importScripts(
-    "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js"
+  "/investorWallet-client/precache-manifest.1476b39b039eeb64aa8ed0fd7224261e.js"
 );
 
-importScripts("/precache-manifest.ec883f702e2294474690b4e2e785ff23.js");
-
-self.addEventListener("message", (event) => {
-    if (event.data && event.data.type === "SKIP_WAITING") {
-        self.skipWaiting();
-    }
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
 
 workbox.core.clientsClaim();
@@ -33,9 +33,7 @@ workbox.core.clientsClaim();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute(
-    workbox.precaching.getCacheKeyForURL("/index.html"),
-    {
-        blacklist: [/^\/_/, /\/[^/?]+\.[^/]+$/],
-    }
-);
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/investorWallet-client/index.html"), {
+  
+  blacklist: [/^\/_/,/\/[^/?]+\.[^/]+$/],
+});
