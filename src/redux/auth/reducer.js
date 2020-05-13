@@ -3,9 +3,7 @@ import { LOGIN_USER } from "../actions";
 const INIT_STATE = {
     user: localStorage.getItem("investorWalletUserId"),
     error: "",
-    // basePath:
-    //     process.env.NODE_ENV === "development" ? "" : "/investorWallet-client",
-    basePath: "",
+    basePath: process.env.PUBLIC_URL,
 };
 
 export default (state = INIT_STATE, action) => {

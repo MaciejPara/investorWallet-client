@@ -41,6 +41,8 @@ const App = (props) => {
     const store = useStore().getState();
     const { basePath } = store.authUser;
 
+    console.log(">>> ", basePath);
+
     return (
         <div className="App">
             <Suspense fallback={<Loader />}>
