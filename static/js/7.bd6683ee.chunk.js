@@ -1,2 +1,0 @@
-(this.webpackJsonpapp=this.webpackJsonpapp||[]).push([[7],{44:function(e,a,t){"use strict";t.r(a);var n=t(1),l=t.n(n),s=t(39);a.default=function(){return l.a.createElement("div",{className:"d-flex m-auto"},l.a.createElement(s.b,{className:"d-inline-flex mr-1 ml-1",to:"/login"},"login"),l.a.createElement(s.b,{className:"d-inline-flex mr-1 ml-1",to:"/register"},"register"))}}}]);
-//# sourceMappingURL=7.bd6683ee.chunk.js.map
