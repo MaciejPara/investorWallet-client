@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import {
     BrowserRouter as Router,
     Route,
@@ -7,12 +7,13 @@ import {
 } from "react-router-dom";
 
 import Loader from "./components/loader";
-import { useStore } from "react-redux";
+import { useStore, useSelector } from "react-redux";
 
-const ViewMain = React.lazy(() => import("./views"));
+const ViewWelcome = React.lazy(() => import("./views"));
 const ViewApp = React.lazy(() => import("./views/app"));
 const ViewError = React.lazy(() => import("./views/error"));
 const ViewLogin = React.lazy(() => import("./views/login"));
+const ViewLogout = React.lazy(() => import("./views/logout"));
 const ViewRegister = React.lazy(() => import("./views/register"));
 
 const AuthRoute = ({ component: Component, authUser, basePath, ...rest }) => {
@@ -35,11 +36,14 @@ const AuthRoute = ({ component: Component, authUser, basePath, ...rest }) => {
     );
 };
 
-const App = (props) => {
-    const { loginUser } = props;
-
+const App = () => {
     const store = useStore().getState();
     const { basePath } = store.authUser;
+    const [state, setState] = useState();
+
+    useSelector(({ authUser: { user } }) => {
+        if (user && !state?.user) setState({ user });
+    });
 
     return (
         <div className="App">
@@ -48,7 +52,7 @@ const App = (props) => {
                     <Switch>
                         <AuthRoute
                             path={`${basePath}/app`}
-                            authUser={loginUser}
+                            authUser={state?.user}
                             component={ViewApp}
                             basePath={basePath}
                         />
@@ -56,12 +60,17 @@ const App = (props) => {
                         <Route
                             path={`${basePath}/`}
                             exact
-                            render={(props) => <ViewMain {...props} />}
+                            render={(props) => <ViewWelcome {...props} />}
                         />
                         <Route
                             path={`${basePath}/login`}
                             exact
                             render={(props) => <ViewLogin {...props} />}
+                        />
+                        <Route
+                            path={`${basePath}/logout`}
+                            exact
+                            render={(props) => <ViewLogout {...props} />}
                         />
                         <Route
                             path={`${basePath}/register`}

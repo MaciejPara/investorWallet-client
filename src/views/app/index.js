@@ -1,19 +1,21 @@
-import React, { Suspense } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-import Loader from "../../components/loader";
+import React from "react";
+import { useStore } from "react-redux";
+import { Link } from "react-router-dom";
 
-const Views = ({ match: { url } }) => {
+const Views = () => {
+    const {
+        authUser: { user, basePath },
+    } = useStore().getState();
+
     return (
-        <Suspense fallback={<Loader />}>
-            <Switch>
-                <Redirect exact from={`${url}/`} to={`${url}`} />
-                {/*<Route*/}
-                {/*path={`${url}/collections`}*/}
-                {/*render={(props) => <Collections {...props} />}*/}
-                {/*/>*/}
-                <Redirect to="/error" />
-            </Switch>
-        </Suspense>
+        <div>
+            <div>
+                <Link to={`${basePath}/logout`}>
+                    <i className="fas fa-sign-out-alt" /> logout
+                </Link>
+            </div>
+            <h1>welcome home {user.email}</h1>
+        </div>
     );
 };
 

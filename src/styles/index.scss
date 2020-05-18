@@ -32,3 +32,62 @@ code {
   bottom: 0;
   margin: auto;
 }
+.formContainer{
+  max-width: 500px;
+  width: 100%;
+  padding: 0 20px;
+
+  h1{
+    margin-bottom: 30px;
+    font-weight: 300;
+  }
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+
+  input {
+    width: 100%;
+    background-color: transparent !important;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    -webkit-appearance: none;
+    color: white;
+    outline: none !important;
+    caret-color: #fff;
+    margin-top: 20px;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active  {
+    color: white !important;
+    -webkit-box-shadow: 0 0 0 30px #282c34 inset !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+
+
+  .formValidationError{
+    color: red;
+  }
+
+  .formSubmitButton{
+    margin-top: 40px;
+    height: 40px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid #fff;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+    &:hover{
+      color: #282c34;
+      background-color: #fff;
+    }
+  }
+
+}
