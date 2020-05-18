@@ -1,0 +1,2 @@
+(this.webpackJsonpapp=this.webpackJsonpapp||[]).push([[10],{60:function(e,t,a){"use strict";a.r(t);var n=a(1),c=a.n(n),u=a(15);a(16);t.default=function(e){e.match.url,e.history,Object(u.b)();var t=Object(u.d)().getState().authUser,a=t.user;t.basePath;return Object(n.useEffect)((function(){a.email&&(document.cookie="connect.sid=''; path=/;")})),c.a.createElement(c.a.Fragment,null,c.a.createElement("h1",null,"logged out"))}}}]);
+//# sourceMappingURL=10.c7b79567.chunk.js.map
