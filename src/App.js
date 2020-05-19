@@ -38,6 +38,11 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => {
 };
 
 const App = ({ user }) => {
+    window.addEventListener("resize", () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+    });
+
     return (
         <div className="App">
             <ReactNotification />
