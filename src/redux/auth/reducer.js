@@ -1,9 +1,8 @@
-import { LOGIN_USER } from "../actions";
+import { LOGIN_USER, LOGOUT_USER } from "../actions";
 
 const INIT_STATE = {
     user: JSON.parse(localStorage.getItem("investorWalletUser") || "{}"),
     error: "",
-    basePath: process.env.PUBLIC_URL,
 };
 
 export default (state = INIT_STATE, action) => {
@@ -12,7 +11,11 @@ export default (state = INIT_STATE, action) => {
             return {
                 ...state,
                 user: action.payload.user,
-                token: action.payload.token,
+            };
+        case LOGOUT_USER:
+            return {
+                ...state,
+                user: undefined,
             };
         default:
             return { ...state };

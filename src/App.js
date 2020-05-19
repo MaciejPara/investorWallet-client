@@ -1,13 +1,14 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import {
     BrowserRouter as Router,
     Route,
     Switch,
     Redirect,
 } from "react-router-dom";
-
+import "react-notifications-component/dist/theme.css";
+import ReactNotification from "react-notifications-component";
 import Loader from "./components/loader";
-import { useStore, useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 const ViewWelcome = React.lazy(() => import("./views"));
 const ViewApp = React.lazy(() => import("./views/app"));
@@ -16,7 +17,7 @@ const ViewLogin = React.lazy(() => import("./views/login"));
 const ViewLogout = React.lazy(() => import("./views/logout"));
 const ViewRegister = React.lazy(() => import("./views/register"));
 
-const AuthRoute = ({ component: Component, authUser, basePath, ...rest }) => {
+const AuthRoute = ({ component: Component, authUser, ...rest }) => {
     return (
         <Route
             {...rest}
@@ -26,7 +27,7 @@ const AuthRoute = ({ component: Component, authUser, basePath, ...rest }) => {
                 ) : (
                     <Redirect
                         to={{
-                            pathname: `${basePath}/login`,
+                            pathname: `/login`,
                             state: { from: props.location },
                         }}
                     />
@@ -36,53 +37,44 @@ const AuthRoute = ({ component: Component, authUser, basePath, ...rest }) => {
     );
 };
 
-const App = () => {
-    const store = useStore().getState();
-    const { basePath } = store.authUser;
-    const [state, setState] = useState();
-
-    useSelector(({ authUser: { user } }) => {
-        if (user && !state?.user) setState({ user });
-    });
-
+const App = ({ user }) => {
     return (
         <div className="App">
+            <ReactNotification />
             <Suspense fallback={<Loader />}>
-                <Router>
+                <Router basename="/investorWallet-client">
                     <Switch>
                         <AuthRoute
-                            path={`${basePath}/app`}
-                            authUser={state?.user}
+                            path={`/app`}
+                            authUser={user?.email}
                             component={ViewApp}
-                            basePath={basePath}
-                        />
-
-                        <Route
-                            path={`${basePath}/`}
-                            exact
-                            render={(props) => <ViewWelcome {...props} />}
                         />
                         <Route
-                            path={`${basePath}/login`}
                             exact
+                            path={`/login`}
                             render={(props) => <ViewLogin {...props} />}
                         />
                         <Route
-                            path={`${basePath}/logout`}
+                            path={`/logout`}
                             exact
                             render={(props) => <ViewLogout {...props} />}
                         />
                         <Route
-                            path={`${basePath}/register`}
+                            path={`/register`}
                             exact
                             render={(props) => <ViewRegister {...props} />}
                         />
                         <Route
-                            path={`${basePath}/error`}
+                            path={`/error`}
                             exact
                             render={(props) => <ViewError {...props} />}
                         />
-                        <Redirect to={`${basePath}/error`} />
+                        <Route
+                            path={`/`}
+                            exact
+                            render={(props) => <ViewWelcome {...props} />}
+                        />
+                        <Redirect to={`/error`} />
                     </Switch>
                 </Router>
             </Suspense>
@@ -90,4 +82,11 @@ const App = () => {
     );
 };
 
-export default App;
+const mapStateToProps = ({ authUser }) => {
+    const { user } = authUser;
+
+    return { user };
+};
+const mapActionsToProps = {};
+
+export default connect(mapStateToProps, mapActionsToProps)(App);

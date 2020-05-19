@@ -2,23 +2,30 @@ import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import { useDispatch, useStore } from "react-redux";
 import { LOGIN_USER } from "../../redux/actions";
+import { store } from "react-notifications-component";
+
+const DOMAIN =
+    process.env.NODE_ENV === "production"
+        ? "https://investor-wallet.herokuapp.com"
+        : "http://localhost:8080";
 
 const Views = ({ match: { url }, history }) => {
     const [credentials] = useState({ email: "", password: "" });
     const dispatch = useDispatch();
 
     const {
-        authUser: { user, basePath },
+        authUser: { user },
     } = useStore().getState();
 
     useEffect(() => {
-        console.log(basePath);
-        if (user.email) history.push(`${basePath}/app`);
+        if (user && user.email) {
+            history.push(`/app`);
+        }
     });
 
-    const handleSubmit = async (values, { setSubmitting }) => {
+    const handleSubmit = async (values) => {
         try {
-            const response = await fetch(`${"http://localhost:8080/signin"}`, {
+            const response = await fetch(`${DOMAIN}/signin`, {
                 method: "post",
                 body: JSON.stringify(values),
                 headers: {
@@ -30,16 +37,46 @@ const Views = ({ match: { url }, history }) => {
             });
             const result = await response.json();
 
-            localStorage.setItem("investorWalletUser", JSON.stringify(result));
+            if (result) {
+                localStorage.setItem(
+                    "investorWalletUser",
+                    JSON.stringify(result)
+                );
 
-            dispatch({
-                type: LOGIN_USER,
-                payload: { user: result },
-            });
-
-            setSubmitting(false);
-            history.push("/investorWallet-client/app");
+                dispatch({
+                    type: LOGIN_USER,
+                    payload: { user: result },
+                });
+                history.push(`/app`);
+            } else {
+                store.addNotification({
+                    title: "Failure",
+                    message: "Login failed",
+                    type: "danger",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeIn"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                        duration: 3000,
+                        onScreen: true,
+                    },
+                });
+            }
         } catch (e) {
+            store.addNotification({
+                title: "Failure",
+                message: e.toString(),
+                type: "danger",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animated", "fadeIn"],
+                animationOut: ["animated", "fadeOut"],
+                dismiss: {
+                    duration: 3000,
+                    onScreen: true,
+                },
+            });
             console.error(e);
         }
     };
