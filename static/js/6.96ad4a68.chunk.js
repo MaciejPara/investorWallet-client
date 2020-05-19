@@ -1,2 +1,0 @@
-(this.webpackJsonpapp=this.webpackJsonpapp||[]).push([[6],{51:function(e,t,a){"use strict";a.r(t);var l=a(1),n=a.n(l),c=a(15),s=a(41);t.default=function(){var e=Object(c.d)().getState().authUser,t=e.user,a=e.basePath;return n.a.createElement("div",null,n.a.createElement("div",null,n.a.createElement(s.b,{to:"".concat(a,"/logout")},n.a.createElement("i",{className:"fas fa-sign-out-alt"})," logout")),n.a.createElement("h1",null,"welcome home ",t.email))}}}]);
-//# sourceMappingURL=6.96ad4a68.chunk.js.map
