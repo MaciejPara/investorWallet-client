@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/investorWallet-client/precache-manifest.2d4e60e1a32c22919181030fb2a06c44.js"
+  "/investorWallet-client/precache-manifest.0b5a6bbd5a4e42833924cea381e5068f.js"
 );
 
 self.addEventListener('message', (event) => {
