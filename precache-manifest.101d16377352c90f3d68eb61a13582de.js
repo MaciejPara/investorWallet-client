@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e443e090b84f3bb6c7169755a06febc5",
+    "revision": "2cbc92253f08332bdfa6e0609aed0180",
     "url": "/investorWallet-client/index.html"
   },
   {
@@ -72,16 +72,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/investorWallet-client/static/js/9.eae424fa.chunk.js"
   },
   {
-    "revision": "76ab048b1dfac607f359",
-    "url": "/investorWallet-client/static/js/App.1c44004c.chunk.js"
+    "revision": "0d9c484056f66d6b1d26",
+    "url": "/investorWallet-client/static/js/App.7e5fc9a8.chunk.js"
   },
   {
     "revision": "d6c5ebced847e65aa098",
     "url": "/investorWallet-client/static/js/main.03e51233.chunk.js"
   },
   {
-    "revision": "170cad99c3bff7996baa",
-    "url": "/investorWallet-client/static/js/runtime-main.e6f455a4.js"
+    "revision": "0e33e9bf80f61cbd9a10",
+    "url": "/investorWallet-client/static/js/runtime-main.89a3b4f7.js"
   },
   {
     "revision": "f6f2de367cabab6b945ead12bc2dc539",
