@@ -1,1 +1,0 @@
-{"version":3,"sources":["views/error/index.js"],"names":["Views"],"mappings":"4FAAA,2BAMeA,UAJD,WACV,OAAO","file":"static/js/12.8b3e2c7d.chunk.js","sourcesContent":["import React from \"react\";\n\nconst Views = () => {\n    return <h1>error</h1>;\n};\n\nexport default Views;\n"],"sourceRoot":""}
