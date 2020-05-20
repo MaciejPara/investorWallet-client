@@ -2,38 +2,30 @@ import React, { Suspense } from "react";
 import { useStore } from "react-redux";
 import { NavLink, Switch, Route, Redirect } from "react-router-dom";
 import Loader from "../../components/loader";
+import Navbar from "../../components/navbar";
 
 const MainAppView = React.lazy(() => import("./main"));
 const CurrenciesView = React.lazy(() => import("./currencies"));
 const CryptoView = React.lazy(() => import("./crypto"));
 const MetalsView = React.lazy(() => import("./metals"));
 
-const Views = ({ match: { url } }) => {
+const TestComponent = (props) => {
+    return <div>some data here</div>;
+};
+
+const Views = (props) => {
+    const {
+        match: { url },
+    } = props;
+
     const {
         authUser: { user },
     } = useStore().getState();
 
     return (
+        // @todo optimize routing and clean components
         <div className={"views"}>
-            <nav className={"navigation"}>
-                <NavLink to={`${url}`} className={"ml-auto"}>
-                    Home
-                </NavLink>
-                <NavLink to={`${url}/currencies`} className={"m-0"}>
-                    Currencies
-                </NavLink>
-                <NavLink to={`${url}/crypto`} className={"m-0"}>
-                    Crypto
-                </NavLink>
-                <NavLink to={`${url}/metals`} className={"mr-auto"}>
-                    Metals
-                </NavLink>
-                <div className={"logoutContainer"}>
-                    <NavLink to={`/logout`}>
-                        <i className="fas fa-sign-out-alt" />
-                    </NavLink>
-                </div>
-            </nav>
+            <Navbar {...props} />
 
             <Suspense fallback={<Loader />}>
                 <Switch>
@@ -56,6 +48,11 @@ const Views = ({ match: { url } }) => {
                         exact
                         path={`${url}/metals`}
                         render={(props) => <MetalsView {...props} />}
+                    />
+                    <Route
+                        exact
+                        path={`${url}/currencies/:id`}
+                        render={(props) => <TestComponent {...props} />}
                     />
                     <Redirect to="/error" />
                 </Switch>

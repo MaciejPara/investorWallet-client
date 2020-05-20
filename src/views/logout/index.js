@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useStore } from "react-redux";
 import { LOGOUT_USER } from "../../redux/actions";
-
-const DOMAIN =
-    process.env.NODE_ENV === "production"
-        ? "https://investor-wallet.herokuapp.com"
-        : "http://localhost:8080";
+import FetchClient from "../../utils/FetchClient";
+import { store } from "react-notifications-component";
 
 const Views = ({ match: { url }, history }) => {
     const dispatch = useDispatch();
@@ -16,24 +13,36 @@ const Views = ({ match: { url }, history }) => {
 
     const logout = async () => {
         try {
-            await fetch(`${DOMAIN}/signout`, {
-                method: "get",
-                headers: {
-                    "content-type": "application/json",
-                    "Access-Control-Allow-Origin": true,
-                    "Access-Control-Allow-Credentials": true,
-                },
-                credentials: "include",
+            const result = await FetchClient.get({
+                url: "signout",
             });
 
-            localStorage.setItem("investorWalletUser", "");
+            if (result?.status === 200) {
+                localStorage.setItem("investorWalletUser", "");
 
-            dispatch({
-                type: LOGOUT_USER,
-                payload: { user: "" },
-            });
+                dispatch({
+                    type: LOGOUT_USER,
+                    payload: { user: "" },
+                });
 
-            history.push("/");
+                history.push("/");
+            } else {
+                console.error(">>> logout :: ", result);
+
+                store.addNotification({
+                    title: "Failure",
+                    message: "Logout failed",
+                    type: "danger",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeIn"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                        duration: 3000,
+                        onScreen: true,
+                    },
+                });
+            }
         } catch (e) {
             console.error(e);
         }

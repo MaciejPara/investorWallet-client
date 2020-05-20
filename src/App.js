@@ -37,7 +37,8 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => {
     );
 };
 
-const App = ({ user }) => {
+const App = (props) => {
+    const { user } = props;
     return (
         <div className="App">
             <ReactNotification />

@@ -114,18 +114,11 @@ a:hover {
   padding: 5px 15px;
   transition: 0.2s;
 }
-.navigation a:hover {
+.navigation a:hover, .navigation a.activeClass {
   text-decoration: none;
   border: 1px solid;
   background-color: #c0ff00;
   color: #282c34;
-}
-.navigation .logoutContainer {
-  margin: 0 0 0 0;
-  display: inline-flex;
-  width: auto;
-  position: absolute;
-  right: 0;
 }
 @media (max-width: 500px) {
   .navigation {
@@ -141,6 +134,18 @@ a:hover {
   display: flex;
   flex-direction: column;
   padding: 15px;
+}
+
+.logoutContainer {
+  margin: 0 0 0 0;
+  display: inline-flex;
+  width: auto;
+  position: absolute;
+  right: 0;
+}
+.logoutContainer.withSpace {
+  right: 15px;
+  top: 15px;
 }
 
 .notification {
@@ -161,6 +166,10 @@ a:hover {
 .notification.error {
   border: 1px solid red;
   background-color: palevioletred;
+}
+
+.dollarIcon {
+  font-size: 70px;
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -3,11 +3,8 @@ import { Formik } from "formik";
 import { useDispatch, useStore } from "react-redux";
 import { LOGIN_USER } from "../../redux/actions";
 import { store } from "react-notifications-component";
-
-const DOMAIN =
-    process.env.NODE_ENV === "production"
-        ? "https://investor-wallet.herokuapp.com"
-        : "http://localhost:8080";
+import FetchClient from "../../utils/FetchClient";
+import { NavLink } from "react-router-dom";
 
 const Views = ({ match: { url }, history }) => {
     const [credentials] = useState({ email: "", password: "" });
@@ -25,17 +22,10 @@ const Views = ({ match: { url }, history }) => {
 
     const handleSubmit = async (values) => {
         try {
-            const response = await fetch(`${DOMAIN}/signin`, {
-                method: "post",
-                body: JSON.stringify(values),
-                headers: {
-                    "content-type": "application/json",
-                    "Access-Control-Allow-Origin": true,
-                    "Access-Control-Allow-Credentials": true,
-                },
-                credentials: "include",
+            const result = await FetchClient.post({
+                url: "signin",
+                body: values,
             });
-            const result = await response.json();
 
             if (result) {
                 localStorage.setItem(
@@ -48,20 +38,6 @@ const Views = ({ match: { url }, history }) => {
                     payload: { user: result },
                 });
                 history.push(`/app`);
-            } else {
-                store.addNotification({
-                    title: "Failure",
-                    message: "Login failed",
-                    type: "danger",
-                    insert: "top",
-                    container: "top-right",
-                    animationIn: ["animated", "fadeIn"],
-                    animationOut: ["animated", "fadeOut"],
-                    dismiss: {
-                        duration: 3000,
-                        onScreen: true,
-                    },
-                });
             }
         } catch (e) {
             store.addNotification({
@@ -99,56 +75,63 @@ const Views = ({ match: { url }, history }) => {
     };
 
     return (
-        <div className={"formContainer m-auto"}>
-            <h1>Login user</h1>
-            <Formik
-                initialValues={credentials}
-                validate={handleValidation}
-                onSubmit={handleSubmit}
-            >
-                {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                }) => (
-                    <form className={"form"} onSubmit={handleSubmit}>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder={"email"}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.email}
-                        />
-                        <span className={"formValidationError"}>
-                            {errors.email && touched.email && errors.email}
-                        </span>
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder={"password"}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.password}
-                        />
-                        <span className={"formValidationError"}>
-                            {errors.email && touched.email && errors.email}
-                        </span>
-                        <button
-                            className={"formSubmitButton"}
-                            type="submit"
-                            disabled={isSubmitting}
-                        >
-                            Submit
-                        </button>
-                    </form>
-                )}
-            </Formik>
-        </div>
+        <>
+            <div className={"logoutContainer withSpace"}>
+                <NavLink to={`/`}>
+                    <i className="fas fa-sign-out-alt" />
+                </NavLink>
+            </div>
+            <div className={"formContainer m-auto"}>
+                <h1>Login user</h1>
+                <Formik
+                    initialValues={credentials}
+                    validate={handleValidation}
+                    onSubmit={handleSubmit}
+                >
+                    {({
+                        values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        isSubmitting,
+                    }) => (
+                        <form className={"form"} onSubmit={handleSubmit}>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder={"email"}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.email}
+                            />
+                            <span className={"formValidationError"}>
+                                {errors.email && touched.email && errors.email}
+                            </span>
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder={"password"}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.password}
+                            />
+                            <span className={"formValidationError"}>
+                                {errors.email && touched.email && errors.email}
+                            </span>
+                            <button
+                                className={"formSubmitButton"}
+                                type="submit"
+                                disabled={isSubmitting}
+                            >
+                                Submit
+                            </button>
+                        </form>
+                    )}
+                </Formik>
+            </div>
+        </>
     );
 };
 

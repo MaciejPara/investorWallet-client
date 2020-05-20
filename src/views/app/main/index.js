@@ -1,4 +1,5 @@
 import React from "react";
+import { useStore } from "react-redux";
 
 const MainAppView = ({ match: { url } }) => {
     return (

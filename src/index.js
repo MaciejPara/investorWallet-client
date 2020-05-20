@@ -6,7 +6,7 @@ import Loader from "./components/loader";
 import { configureStore } from "./redux/store";
 import { Provider } from "react-redux";
 
-const App = React.lazy(() => import(/* webpackChunkName: "App" */ "./App"));
+const App = React.lazy(() => import("./App"));
 
 ReactDOM.render(
     <React.StrictMode>
