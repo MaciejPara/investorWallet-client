@@ -125,7 +125,7 @@ const Views = ({ match: { url }, history }) => {
                                 type="submit"
                                 disabled={isSubmitting}
                             >
-                                Submit
+                                Sign in
                             </button>
                         </form>
                     )}

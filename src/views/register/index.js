@@ -64,6 +64,7 @@ const Views = ({ match: { url }, history }) => {
                     onScreen: true,
                 },
             });
+            setSubmitting(false);
             console.error(e);
         }
     };
@@ -165,7 +166,7 @@ const Views = ({ match: { url }, history }) => {
                                 type="submit"
                                 disabled={isSubmitting}
                             >
-                                Submit
+                                Sign up
                             </button>
                         </form>
                     )}
