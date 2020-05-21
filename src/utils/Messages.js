@@ -4,8 +4,7 @@ class Messages {
     _showUnauthorized() {
         store.addNotification({
             title: "Failure",
-            message:
-                "Login failed - unauthorized. Check your e-mail or password.",
+            message: "Unauthorized - check your e-mail or password.",
             type: "danger",
             insert: "top",
             container: "top-right",
@@ -22,6 +21,22 @@ class Messages {
         store.addNotification({
             title: "Failure",
             message: "Internal server error. Contact with admin.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "fadeIn"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: {
+                duration: 4000,
+                onScreen: true,
+            },
+        });
+    }
+
+    _showEmailAlreadyExists() {
+        store.addNotification({
+            title: "Failure",
+            message: "Email already exists.",
             type: "danger",
             insert: "top",
             container: "top-right",

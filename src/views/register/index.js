@@ -7,7 +7,11 @@ import FetchClient from "../../utils/FetchClient";
 import { NavLink } from "react-router-dom";
 
 const Views = ({ match: { url }, history }) => {
-    const [credentials] = useState({ email: "", password: "" });
+    const [credentials] = useState({
+        email: "",
+        password: "",
+        passwordRepeat: "",
+    });
     const dispatch = useDispatch();
 
     const {
@@ -20,24 +24,31 @@ const Views = ({ match: { url }, history }) => {
         }
     });
 
-    const handleSubmit = async (values) => {
+    const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const result = await FetchClient.post({
-                url: "signin",
+                url: "signup",
                 body: values,
             });
 
-            if (result) {
-                localStorage.setItem(
-                    "investorWalletUser",
-                    JSON.stringify(result)
-                );
+            setSubmitting(false);
 
-                dispatch({
-                    type: LOGIN_USER,
-                    payload: { user: result },
+            if (result) {
+                store.addNotification({
+                    title: "Success",
+                    message: result?.message,
+                    type: "success",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeIn"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                        duration: 4000,
+                        onScreen: true,
+                    },
                 });
-                history.push(`/app`);
+
+                history.push(`/login`);
             }
         } catch (e) {
             store.addNotification({
@@ -64,6 +75,21 @@ const Views = ({ match: { url }, history }) => {
             errors.password = "Required";
         }
 
+        if (!values.passwordRepeat) {
+            errors.passwordRepeat = "Required";
+        }
+
+        if (
+            values.passwordRepeat &&
+            values.password !== values.passwordRepeat
+        ) {
+            errors.passwordRepeat = "Passwords are not the same.";
+        }
+
+        if (values.password && values.password.length < 8) {
+            errors.password = "Password must be at least 8 characters long.";
+        }
+
         if (!values.email) {
             errors.email = "Required";
         } else if (
@@ -76,60 +102,74 @@ const Views = ({ match: { url }, history }) => {
 
     return (
         <>
-            <div className={"logoutContainer"}>
+            <div className={"logoutContainer withSpace"}>
                 <NavLink to={`/`}>
                     <i className="fas fa-sign-out-alt" />
                 </NavLink>
             </div>
             <div className={"formContainer m-auto"}>
-                <h1>Register user</h1>
-                {/*<Formik*/}
-                {/*initialValues={credentials}*/}
-                {/*validate={handleValidation}*/}
-                {/*onSubmit={handleSubmit}*/}
-                {/*>*/}
-                {/*{({*/}
-                {/*values,*/}
-                {/*errors,*/}
-                {/*touched,*/}
-                {/*handleChange,*/}
-                {/*handleBlur,*/}
-                {/*handleSubmit,*/}
-                {/*isSubmitting,*/}
-                {/*}) => (*/}
-                {/*<form className={"form"} onSubmit={handleSubmit}>*/}
-                {/*<input*/}
-                {/*type="email"*/}
-                {/*name="email"*/}
-                {/*placeholder={"email"}*/}
-                {/*onChange={handleChange}*/}
-                {/*onBlur={handleBlur}*/}
-                {/*value={values.email}*/}
-                {/*/>*/}
-                {/*<span className={"formValidationError"}>*/}
-                {/*{errors.email && touched.email && errors.email}*/}
-                {/*</span>*/}
-                {/*<input*/}
-                {/*type="password"*/}
-                {/*name="password"*/}
-                {/*placeholder={"password"}*/}
-                {/*onChange={handleChange}*/}
-                {/*onBlur={handleBlur}*/}
-                {/*value={values.password}*/}
-                {/*/>*/}
-                {/*<span className={"formValidationError"}>*/}
-                {/*{errors.email && touched.email && errors.email}*/}
-                {/*</span>*/}
-                {/*<button*/}
-                {/*className={"formSubmitButton"}*/}
-                {/*type="submit"*/}
-                {/*disabled={isSubmitting}*/}
-                {/*>*/}
-                {/*Submit*/}
-                {/*</button>*/}
-                {/*</form>*/}
-                {/*)}*/}
-                {/*</Formik>*/}
+                <h1>Register</h1>
+                <Formik
+                    initialValues={credentials}
+                    validate={handleValidation}
+                    onSubmit={handleSubmit}
+                >
+                    {({
+                        values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        isSubmitting,
+                    }) => (
+                        <form className={"form"} onSubmit={handleSubmit}>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder={"email"}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.email}
+                            />
+                            <span className={"formValidationError"}>
+                                {touched.email && errors.email}
+                            </span>
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder={"password"}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.password}
+                                autoComplete="new-password"
+                            />
+                            <span className={"formValidationError"}>
+                                {touched.password && errors.password}
+                            </span>
+                            <input
+                                type="password"
+                                name="passwordRepeat"
+                                placeholder={"repeat password"}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.passwordRepeat}
+                                autoComplete="new-password"
+                            />
+                            <span className={"formValidationError"}>
+                                {touched.passwordRepeat &&
+                                    errors.passwordRepeat}
+                            </span>
+                            <button
+                                className={"formSubmitButton"}
+                                type="submit"
+                                disabled={isSubmitting}
+                            >
+                                Submit
+                            </button>
+                        </form>
+                    )}
+                </Formik>
             </div>
         </>
     );

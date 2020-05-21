@@ -82,7 +82,7 @@ const Views = ({ match: { url }, history }) => {
                 </NavLink>
             </div>
             <div className={"formContainer m-auto"}>
-                <h1>Login user</h1>
+                <h1>Login</h1>
                 <Formik
                     initialValues={credentials}
                     validate={handleValidation}
@@ -118,7 +118,7 @@ const Views = ({ match: { url }, history }) => {
                                 value={values.password}
                             />
                             <span className={"formValidationError"}>
-                                {errors.email && touched.email && errors.email}
+                                {touched.password && errors.password}
                             </span>
                             <button
                                 className={"formSubmitButton"}

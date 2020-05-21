@@ -57,7 +57,7 @@ code {
     color: white;
     outline: none !important;
     caret-color: #fff;
-    margin-top: 20px;
+    margin-top: 5px;
   }
 
   input:-webkit-autofill,
@@ -72,9 +72,12 @@ code {
 
   .formValidationError{
     color: red;
+    height: 26px;
   }
 
   .formSubmitButton{
+    @extend .disableCopy;
+
     margin-top: 40px;
     height: 40px;
     background-color: transparent;
@@ -92,11 +95,21 @@ code {
   }
 }
 
+.disableCopy{
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 a{
   color: #c0ff00;
   border: 1px solid transparent;
   padding: 5px 15px;
   transition: .2s;
+
+  @extend .disableCopy;
 
   &:hover{
     text-decoration: none;
@@ -112,12 +125,6 @@ a{
   padding-bottom: 10px;
   margin-bottom: 50px;
   position: relative;
-
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 
   a{
     color: #c0ff00;
@@ -186,4 +193,5 @@ a{
 
 .dollarIcon{
   font-size: 70px;
+  color: #c0ff00;
 }

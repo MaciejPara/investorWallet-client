@@ -53,7 +53,7 @@ code {
   color: white;
   outline: none !important;
   caret-color: #fff;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 .form input:-webkit-autofill,
 .form input:-webkit-autofill:hover,
@@ -65,6 +65,7 @@ code {
 }
 .form .formValidationError {
   color: red;
+  height: 26px;
 }
 .form .formSubmitButton {
   margin-top: 40px;
@@ -81,6 +82,14 @@ code {
 .form .formSubmitButton:hover {
   color: #282c34;
   background-color: #fff;
+}
+
+.disableCopy, a, .form .formSubmitButton {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 a {
@@ -102,11 +111,6 @@ a:hover {
   padding-bottom: 10px;
   margin-bottom: 50px;
   position: relative;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 .navigation a {
   color: #c0ff00;
@@ -170,6 +174,7 @@ a:hover {
 
 .dollarIcon {
   font-size: 70px;
+  color: #c0ff00;
 }
 
 /*# sourceMappingURL=index.css.map */

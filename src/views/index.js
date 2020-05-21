@@ -20,10 +20,10 @@ const Views = ({ match: { url }, history }) => {
 
             <div>
                 <NavLink className="d-inline-flex mr-1 ml-1" to={`/login`}>
-                    login
+                    LOGIN
                 </NavLink>
                 <NavLink className="d-inline-flex mr-1 ml-1" to={`/register`}>
-                    register
+                    REGISTER
                 </NavLink>
             </div>
         </div>

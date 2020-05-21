@@ -32,6 +32,7 @@ class FetchClient extends Messages {
 
         if (response?.status === 401) return this._showUnauthorized();
         if (response?.status === 500) return this._showInternalServerError();
+        if (response?.status === 409) return this._showEmailAlreadyExists();
 
         return await response.json();
     }
