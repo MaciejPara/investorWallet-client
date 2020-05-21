@@ -17,6 +17,7 @@ code {
   color: #fff;
   position: relative;
   width: 100%;
+  padding-bottom: 50px;
 }
 
 .loader {
@@ -175,6 +176,44 @@ a:hover {
 .dollarIcon {
   font-size: 70px;
   color: #c0ff00;
+}
+
+.favourite {
+  cursor: pointer;
+  opacity: 0.5;
+}
+.favourite.active {
+  color: #c0ff00;
+  opacity: 1;
+}
+
+.tableHeader {
+  padding: 5px 15px;
+}
+
+.cell {
+  padding: 5px 15px;
+}
+.cell a {
+  padding: 0;
+}
+
+.contentContainer {
+  max-width: 400px;
+  margin: auto;
+}
+
+.userSettingsFooter {
+  background-color: rgba(40, 44, 52, 0.9);
+  width: calc(100% - 30px);
+  margin: auto;
+  border-top: 1px solid rgba(192, 255, 0, 0.66);
+  position: fixed;
+  height: calc(22px + 30px);
+  padding: 15px 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 /*# sourceMappingURL=index.css.map */

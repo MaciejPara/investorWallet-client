@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { useStore } from "react-redux";
-import { NavLink, Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Loader from "../../components/loader";
 import Navbar from "../../components/navbar";
 
@@ -26,6 +26,9 @@ const Views = (props) => {
         // @todo optimize routing and clean components
         <div className={"views"}>
             <Navbar {...props} />
+            <div className={"userSettingsFooter"}>
+                <span>base: PLN</span>
+            </div>
 
             <Suspense fallback={<Loader />}>
                 <Switch>
