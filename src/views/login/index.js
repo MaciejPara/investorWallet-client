@@ -23,7 +23,7 @@ const Views = ({ match: { url }, history }) => {
     const handleSubmit = async (values) => {
         try {
             const result = await FetchClient.post({
-                url: "signin",
+                url: "/signin",
                 body: values,
             });
 

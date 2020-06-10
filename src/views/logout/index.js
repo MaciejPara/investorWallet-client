@@ -14,7 +14,7 @@ const Views = ({ match: { url }, history }) => {
     const logout = async () => {
         try {
             const result = await FetchClient.get({
-                url: "signout",
+                url: "/signout",
             });
 
             if (result?.status === 200) {
