@@ -5,13 +5,7 @@ import Loader from "../../components/loader";
 import Navbar from "../../components/navbar";
 
 const MainAppView = React.lazy(() => import("./main"));
-const CurrenciesView = React.lazy(() => import("./currencies"));
-const CryptoView = React.lazy(() => import("./crypto"));
-const MetalsView = React.lazy(() => import("./metals"));
-
-const TestComponent = (props) => {
-    return <div>some data here</div>;
-};
+const CategoryComponent = React.lazy(() => import("./category"));
 
 const Views = (props) => {
     const {
@@ -20,10 +14,10 @@ const Views = (props) => {
 
     const {
         authUser: { user },
+        collections,
     } = useStore().getState();
 
     return (
-        // @todo optimize routing and clean components
         <div className={"views"}>
             <Navbar {...props} />
             <div className={"userSettingsFooter"}>
@@ -37,26 +31,19 @@ const Views = (props) => {
                         path={`${url}/`}
                         render={(props) => <MainAppView {...props} />}
                     />
-                    <Route
-                        exact
-                        path={`${url}/currencies`}
-                        render={(props) => <CurrenciesView {...props} />}
-                    />
-                    <Route
-                        exact
-                        path={`${url}/crypto`}
-                        render={(props) => <CryptoView {...props} />}
-                    />
-                    <Route
-                        exact
-                        path={`${url}/metals`}
-                        render={(props) => <MetalsView {...props} />}
-                    />
-                    <Route
-                        exact
-                        path={`${url}/currencies/:id`}
-                        render={(props) => <TestComponent {...props} />}
-                    />
+                    {collections?.categories.map((item, key) => (
+                        <Route
+                            key={key}
+                            exact
+                            path={`${url}/${item}`}
+                            render={(props) => (
+                                <CategoryComponent
+                                    {...props}
+                                    model={collections[item]?.model}
+                                />
+                            )}
+                        />
+                    ))}
                     <Redirect to="/error" />
                 </Switch>
             </Suspense>

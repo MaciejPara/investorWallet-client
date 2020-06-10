@@ -1,29 +1,37 @@
-import FetchClient from "./FetchClient";
-
 class Model {
-    constructor({ name, plural }) {
+    constructor({ name, plural, sort, categoryName }) {
         this._name = name;
         this._plural = plural;
         this._fetchPending = false;
         this._data = [];
+        this._sort = sort;
+        this._categoryName = categoryName;
+        this._allUrl = `/${this._plural}`;
+        this._shouldRefresh = true;
     }
 
-    async _fetchData() {
-        try {
-            const result = await FetchClient.get({ url: `${this._plural}` });
-
-            this._fetchPending = false;
-
-            this._data = result;
-        } catch (e) {
-            console.error(e);
-        }
+    setRefresh(state = false) {
+        this._shouldRefresh = state;
     }
 
-    getData() {
-        if (this._data.length === 0 && !this._fetchPending) this._fetchData();
+    shouldRefresh() {
+        return this._shouldRefresh;
+    }
 
-        return this._data;
+    getAllUrl() {
+        return this._allUrl;
+    }
+
+    getCategoryName() {
+        return this._categoryName;
+    }
+
+    getName() {
+        return this._name;
+    }
+
+    getPlural() {
+        return this._plural;
     }
 }
 

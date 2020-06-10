@@ -16,7 +16,7 @@ class FetchClient extends Messages {
     }
 
     async get({ url }) {
-        const response = await fetch(`${this._url}/${url}`, {
+        const response = await fetch(`${this._url}${url}`, {
             ...this._config,
             method: "get",
         });
@@ -24,7 +24,7 @@ class FetchClient extends Messages {
     }
 
     async post({ url, body }) {
-        const response = await fetch(`${this._url}/${url}`, {
+        const response = await fetch(`${this._url}${url}`, {
             ...this._config,
             method: "post",
             body: JSON.stringify(body),
@@ -38,7 +38,7 @@ class FetchClient extends Messages {
     }
 
     async delete({ url }) {
-        const response = await fetch(`${this._url}/${url}`, {
+        const response = await fetch(`${this._url}${url}`, {
             ...this._config,
             method: "delete",
         });
