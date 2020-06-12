@@ -26,6 +26,10 @@ class UserSettings {
             body: { favourites },
         });
     }
+
+    setOptions(options) {
+        this._options = { ...this._options, ...options };
+    }
 }
 
 export default UserSettings;

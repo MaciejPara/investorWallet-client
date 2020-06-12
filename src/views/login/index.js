@@ -12,6 +12,7 @@ const Views = ({ match: { url }, history }) => {
 
     const {
         authUser: { user },
+        settings: { userSettingsAdapter },
     } = useStore().getState();
 
     useEffect(() => {
@@ -42,6 +43,8 @@ const Views = ({ match: { url }, history }) => {
                     type: MENU_CHANGE,
                     payload: "home",
                 });
+
+                userSettingsAdapter.setOptions(result);
 
                 if (result.settings) {
                     localStorage.setItem(
