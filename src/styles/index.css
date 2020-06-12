@@ -17,7 +17,7 @@ code {
   color: #fff;
   position: relative;
   width: 100%;
-  padding-bottom: 50px;
+  padding-bottom: 65px;
 }
 
 .loader {
@@ -209,12 +209,19 @@ a:hover {
   margin: auto;
   border-top: 1px solid rgba(192, 255, 0, 0.66);
   position: fixed;
-  height: calc(22px + 30px);
+  height: calc(38px + 30px);
   padding: 15px 0;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 1;
+}
+
+.baseOptionSelect {
+  display: inline-block;
+  width: 100px;
+  background-color: transparent;
+  margin-left: 5px;
 }
 
 /*# sourceMappingURL=index.css.map */

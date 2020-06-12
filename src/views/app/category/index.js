@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 import Content from "../../../components/content";
 import { GET_CATEGORY_DATA } from "../../../redux/actions";
+import Loader from "../../../components/loader";
 
 const Category = (props) => {
     const { model } = props;
 
     const dispatch = useDispatch();
-    const [data, setData] = useState([]);
+    const { settings } = useStore().getState();
+    const [data, setData] = useState(null);
 
     useEffect(() => {
-        if (model && model.shouldRefresh()) {
+        if (model?.shouldRefresh()) {
             model.setRefresh(false);
             dispatch({
                 type: GET_CATEGORY_DATA,
                 payload: {
-                    url: model?.getAllUrl(),
+                    url: model.getAllUrl(settings?.base),
+                    category: model.getCategoryName(),
                 },
             });
         }
@@ -32,7 +35,13 @@ const Category = (props) => {
     return (
         <div>
             {model ? (
-                <Content {...props} data={data} />
+                <>
+                    {data !== null ? (
+                        <Content {...props} data={data} />
+                    ) : (
+                        <Loader />
+                    )}
+                </>
             ) : (
                 <span>working on it..</span>
             )}

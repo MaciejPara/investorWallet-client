@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import {
     BrowserRouter as Router,
     Route,
@@ -8,7 +8,8 @@ import {
 import "react-notifications-component/dist/theme.css";
 import ReactNotification from "react-notifications-component";
 import Loader from "./components/loader";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { SET_INIT, GET_USER_DATA } from "./redux/actions";
 
 const ViewWelcome = React.lazy(() => import("./views"));
 const ViewApp = React.lazy(() => import("./views/app"));
@@ -38,7 +39,25 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => {
 };
 
 const App = (props) => {
-    const { user } = props;
+    const { user, init } = props;
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (init) {
+            dispatch({
+                type: GET_USER_DATA,
+                payload: {
+                    url: `/users?filter=${JSON.stringify({ _id: user.id })}`,
+                },
+            });
+            dispatch({
+                type: SET_INIT,
+                payload: false,
+            });
+        }
+    }, [init, user]);
+
     return (
         <div className="App">
             <ReactNotification />
@@ -84,9 +103,9 @@ const App = (props) => {
 };
 
 const mapStateToProps = ({ authUser }) => {
-    const { user } = authUser;
+    const { user, init } = authUser;
 
-    return { user };
+    return { user, init };
 };
 const mapActionsToProps = {};
 

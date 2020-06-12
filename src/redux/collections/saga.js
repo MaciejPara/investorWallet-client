@@ -6,13 +6,13 @@ export function* watchInitializeCollections() {
     yield takeEvery(GET_CATEGORY_DATA, init);
 }
 
-export function* init({ payload: { url } }) {
+export function* init({ payload: { url, category } }) {
     const result = yield FetchClient.get({ url });
 
     yield put({
         type: SET_DATA,
         payload: {
-            category: "currencies",
+            category,
             data: result[0]?.rates, //@todo optimize !!!
         },
     });

@@ -1,18 +1,41 @@
 import React, { useState } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import FavouriteComponent from "../../components/favourite";
+import { useStore, useDispatch } from "react-redux";
+import { SET_USER_FAVOURITES } from "../../redux/actions";
 
 const Content = ({ data = [], match: { url } }) => {
-    const [state, setState] = useState({});
+    const {
+        authUser: {
+            user: { favourites: userFavourites },
+        },
+        settings: { userSettingsAdapter },
+    } = useStore().getState();
 
-    const handleFavouriteChange = ({
+    const dispatch = useDispatch();
+
+    const [favourites, setFavourites] = useState(userFavourites);
+
+    const handleFavouriteChange = async ({
         currentTarget: {
             dataset: { value },
         },
     }) => {
-        console.log(value);
+        let newFavourites = favourites || [];
 
-        setState({ ...state, [value]: !state[value] });
+        if (newFavourites && newFavourites.indexOf(value) > -1) {
+            newFavourites = newFavourites.filter((item) => item !== value);
+        } else newFavourites.push(value);
+
+        const result = await userSettingsAdapter.changeFavourites(
+            newFavourites
+        );
+
+        if (result?.ok) {
+            dispatch({ type: SET_USER_FAVOURITES, payload: newFavourites });
+            setFavourites(newFavourites);
+        }
     };
 
     return (
@@ -26,17 +49,11 @@ const Content = ({ data = [], match: { url } }) => {
             <div className={"d-flex w-100 m-auto flex-column"}>
                 {data.map(({ name, rate }, key) => (
                     <div key={key} className={"row w-100 m-auto d-flex"}>
-                        <span
-                            className={"cell"}
-                            data-value={name}
-                            onClick={handleFavouriteChange}
-                        >
-                            {state[name] ? (
-                                <i className="fas fa-star favourite active" />
-                            ) : (
-                                <i className="far fa-star favourite" />
-                            )}
-                        </span>
+                        <FavouriteComponent
+                            handleChange={handleFavouriteChange}
+                            name={name}
+                            state={favourites.indexOf(name) > -1}
+                        />
                         <span className={"cell"}>{name}</span>
                         <span className={"cell m-auto"}>{rate}</span>
                         <span className={"cell"}>

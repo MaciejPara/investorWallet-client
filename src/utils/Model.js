@@ -6,8 +6,8 @@ class Model {
         this._data = [];
         this._sort = sort;
         this._categoryName = categoryName;
-        this._allUrl = `/${this._plural}`;
         this._shouldRefresh = true;
+        this._baseUrl = `/${this._plural}`;
     }
 
     setRefresh(state = false) {
@@ -18,8 +18,10 @@ class Model {
         return this._shouldRefresh;
     }
 
-    getAllUrl() {
-        return this._allUrl;
+    getAllUrl(base) {
+        return `${this._baseUrl}?filter=${JSON.stringify({
+            base: base,
+        })}&sort=${JSON.stringify({ createdAt: "desc" })}&limit=1`;
     }
 
     getCategoryName() {

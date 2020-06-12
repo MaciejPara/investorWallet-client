@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import { useDispatch, useStore } from "react-redux";
-import { LOGIN_USER } from "../../redux/actions";
+import { LOGIN_USER, MENU_CHANGE, SET_SETTINGS } from "../../redux/actions";
 import { store } from "react-notifications-component";
 import FetchClient from "../../utils/FetchClient";
 import { NavLink } from "react-router-dom";
@@ -37,6 +37,24 @@ const Views = ({ match: { url }, history }) => {
                     type: LOGIN_USER,
                     payload: { user: result },
                 });
+
+                dispatch({
+                    type: MENU_CHANGE,
+                    payload: "home",
+                });
+
+                if (result.settings) {
+                    localStorage.setItem(
+                        "investorWalletUserSettings",
+                        JSON.stringify(result.settings)
+                    );
+
+                    dispatch({
+                        type: SET_SETTINGS,
+                        payload: { ...result.settings },
+                    });
+                }
+
                 history.push(`/app`);
             }
         } catch (e) {

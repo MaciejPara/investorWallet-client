@@ -1,8 +1,12 @@
-import React, { Suspense } from "react";
-import { useStore } from "react-redux";
+import React, { Suspense, useState } from "react";
+import { useStore, useDispatch } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Loader from "../../components/loader";
 import Navbar from "../../components/navbar";
+
+import CustomSelect from "../../components/customSelect";
+import { GET_CATEGORY_DATA } from "../../redux/collections/actions";
+import { SET_SETTINGS } from "../../redux/settings/actions";
 
 const MainAppView = React.lazy(() => import("./main"));
 const CategoryComponent = React.lazy(() => import("./category"));
@@ -12,16 +16,49 @@ const Views = (props) => {
         match: { url },
     } = props;
 
-    const {
-        authUser: { user },
-        collections,
-    } = useStore().getState();
+    const dispatch = useDispatch();
+    const { collections, settings } = useStore().getState();
+    const [baseState, setBaseState] = useState(settings.base);
+
+    const handleBaseChange = async ({ value }) => {
+        if (value !== baseState) {
+            const result = await settings.userSettingsAdapter.changeBase(value);
+            if (result?.ok) {
+                collections.categories.forEach((item) => {
+                    const model = collections[item]?.model;
+
+                    dispatch({
+                        type: GET_CATEGORY_DATA,
+                        payload: {
+                            url: model.getAllUrl(value),
+                            category: model.getCategoryName(),
+                        },
+                    });
+                });
+                dispatch({
+                    type: SET_SETTINGS,
+                    payload: { base: value },
+                });
+                setBaseState(value);
+            }
+        }
+    };
 
     return (
         <div className={"views"}>
             <Navbar {...props} />
             <div className={"userSettingsFooter"}>
-                <span>base: PLN</span>
+                <span>
+                    base:
+                    <CustomSelect
+                        menuPlacement={"top"}
+                        defaultValue={settings.baseOptions.find(
+                            ({ value }) => value === baseState
+                        )}
+                        options={settings.baseOptions}
+                        handleChange={handleBaseChange}
+                    />
+                </span>
             </div>
 
             <Suspense fallback={<Loader />}>

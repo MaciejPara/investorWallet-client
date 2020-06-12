@@ -37,6 +37,19 @@ class FetchClient extends Messages {
         return await response.json();
     }
 
+    async update({ url, body }) {
+        const response = await fetch(`${this._url}${url}`, {
+            ...this._config,
+            method: "PATCH",
+            body: JSON.stringify(body),
+        });
+
+        if (response?.status === 401) return this._showUnauthorized();
+        if (response?.status === 500) return this._showInternalServerError();
+
+        return await response.json();
+    }
+
     async delete({ url }) {
         const response = await fetch(`${this._url}${url}`, {
             ...this._config,
