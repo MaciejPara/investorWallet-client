@@ -9,6 +9,9 @@ export const SET_USER = "SET_USER";
 /* MENU */
 export const MENU_CHANGE = "MENU_CHANGE";
 
+/* LOADER */
+export const LOADER = "LOADER";
+
 export * from "./auth/actions";
 export * from "./collections/actions";
 export * from "./settings/actions";

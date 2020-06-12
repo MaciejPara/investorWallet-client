@@ -7,6 +7,7 @@ import Navbar from "../../components/navbar";
 import CustomSelect from "../../components/customSelect";
 import { GET_CATEGORY_DATA } from "../../redux/collections/actions";
 import { SET_SETTINGS } from "../../redux/settings/actions";
+import { LOADER } from "../../redux/actions";
 
 const MainAppView = React.lazy(() => import("./main"));
 const CategoryComponent = React.lazy(() => import("./category"));
@@ -22,6 +23,7 @@ const Views = (props) => {
 
     const handleBaseChange = async ({ value }) => {
         if (value !== baseState) {
+            dispatch({ type: LOADER });
             const result = await settings.userSettingsAdapter.changeBase(value);
             if (result?.ok) {
                 collections.categories.forEach((item) => {
@@ -40,6 +42,7 @@ const Views = (props) => {
                     payload: { base: value },
                 });
                 setBaseState(value);
+                dispatch({ type: LOADER });
             }
         }
     };

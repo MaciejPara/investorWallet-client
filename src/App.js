@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import {
     BrowserRouter as Router,
     Route,
@@ -39,7 +39,8 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => {
 };
 
 const App = (props) => {
-    const { user, init } = props;
+    const { user, init, newLoader } = props;
+    const [loader, setLoader] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -62,9 +63,12 @@ const App = (props) => {
         }
     }, [init, user]);
 
+    if (newLoader !== undefined && newLoader !== loader) setLoader(newLoader);
+
     return (
         <div className="App">
             <ReactNotification />
+            {loader && <Loader />}
             <Suspense fallback={<Loader />}>
                 <Router basename="/investorWallet-client">
                     <Switch>
@@ -106,10 +110,10 @@ const App = (props) => {
     );
 };
 
-const mapStateToProps = ({ authUser }) => {
+const mapStateToProps = ({ authUser, loader }) => {
     const { user, init } = authUser;
 
-    return { user, init };
+    return { user, init, newLoader: loader };
 };
 const mapActionsToProps = {};
 
