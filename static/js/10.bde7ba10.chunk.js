@@ -1,0 +1,2 @@
+(this.webpackJsonpapp=this.webpackJsonpapp||[]).push([[10],{83:function(e,t,a){"use strict";a.r(t);var n=a(1),r=a.n(n),u=a(23);t.default=function(e){e.match.url;var t=Object(u.e)().getState().authUser.user.favourites;return r.a.createElement("div",null,r.a.createElement("h4",null,"Favourites:"),t.map((function(e,t){return r.a.createElement("p",{key:t},e)})))}}}]);
+//# sourceMappingURL=10.bde7ba10.chunk.js.map
