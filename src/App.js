@@ -45,12 +45,16 @@ const App = (props) => {
 
     useEffect(() => {
         if (init) {
-            dispatch({
-                type: GET_USER_DATA,
-                payload: {
-                    url: `/users?filter=${JSON.stringify({ _id: user.id })}`,
-                },
-            });
+            if (user.id) {
+                dispatch({
+                    type: GET_USER_DATA,
+                    payload: {
+                        url: `/users?filter=${JSON.stringify({
+                            _id: user.id,
+                        })}`,
+                    },
+                });
+            }
             dispatch({
                 type: SET_INIT,
                 payload: false,

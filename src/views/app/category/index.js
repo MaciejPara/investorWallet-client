@@ -37,7 +37,13 @@ const Category = (props) => {
             {model ? (
                 <>
                     {data !== null ? (
-                        <Content {...props} data={data} />
+                        <>
+                            {data?.length > 0 ? (
+                                <Content {...props} data={data} />
+                            ) : (
+                                <p>No results..</p>
+                            )}
+                        </>
                     ) : (
                         <Loader />
                     )}
