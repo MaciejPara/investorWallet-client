@@ -5,6 +5,7 @@ import {
     GET_CATEGORY_DATA,
     SET_INIT_FLAG,
     SET_USER_FAVOURITES,
+    LOADER,
 } from "../../../redux/actions";
 
 const MainAppView = ({ match: { url } }) => {
@@ -69,6 +70,8 @@ const MainAppView = ({ match: { url } }) => {
     }) => {
         let newFavourites = favourites || [];
 
+        dispatch({ type: LOADER });
+
         if (newFavourites && newFavourites.indexOf(value) > -1) {
             newFavourites = newFavourites.filter((item) => item !== value);
         } else newFavourites.push(value);
@@ -77,6 +80,7 @@ const MainAppView = ({ match: { url } }) => {
             newFavourites
         );
 
+        dispatch({ type: LOADER });
         if (result?.ok) {
             dispatch({ type: SET_USER_FAVOURITES, payload: newFavourites });
             setFavourites(newFavourites);
