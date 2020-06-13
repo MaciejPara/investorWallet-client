@@ -52,7 +52,7 @@ const Views = (props) => {
             <Navbar {...props} />
             <div className={"userSettingsFooter"}>
                 <span>
-                    base:
+                    BASE
                     <CustomSelect
                         menuPlacement={"top"}
                         defaultValue={settings.baseOptions.find(

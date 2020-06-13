@@ -97,6 +97,7 @@ const CustomSelect = ({
 
     return (
         <Select
+            isSearchable={false}
             menuPlacement={menuPlacement || "down"}
             className={"baseOptionSelect"}
             defaultValue={defaultValue}

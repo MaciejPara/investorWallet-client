@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import moment from "moment";
-import { Link } from "react-router-dom";
-import FavouriteComponent from "../../components/favourite";
 import { useStore, useDispatch } from "react-redux";
 import { SET_USER_FAVOURITES } from "../../redux/actions";
+import CategoryItem from "../../components/categoryItem";
 
 const Content = ({ data = [], match: { url } }) => {
     const {
@@ -48,20 +46,14 @@ const Content = ({ data = [], match: { url } }) => {
             </div>
             <div className={"d-flex w-100 m-auto flex-column"}>
                 {data.map(({ name, rate }, key) => (
-                    <div key={key} className={"row w-100 m-auto d-flex"}>
-                        <FavouriteComponent
-                            handleChange={handleFavouriteChange}
-                            name={name}
-                            state={favourites.indexOf(name) > -1}
-                        />
-                        <span className={"cell"}>{name}</span>
-                        <span className={"cell m-auto"}>{rate}</span>
-                        <span className={"cell"}>
-                            <Link to={`${url}`}>
-                                <i className="fas fa-ellipsis-h" />
-                            </Link>
-                        </span>
-                    </div>
+                    <CategoryItem
+                        key={key}
+                        name={name}
+                        rate={rate}
+                        url={url}
+                        favourites={favourites}
+                        handleFavouriteChange={handleFavouriteChange}
+                    />
                 ))}
             </div>
             {/*{data.map(({ name, rate }, key) => (*/}
