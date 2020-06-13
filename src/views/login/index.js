@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import { useDispatch, useStore } from "react-redux";
-import { LOGIN_USER, MENU_CHANGE, SET_SETTINGS } from "../../redux/actions";
+import {
+    LOADER,
+    LOGIN_USER,
+    MENU_CHANGE,
+    SET_SETTINGS,
+} from "../../redux/actions";
 import { store } from "react-notifications-component";
 import FetchClient from "../../utils/FetchClient";
 import { NavLink } from "react-router-dom";
@@ -23,6 +28,7 @@ const Views = ({ match: { url }, history }) => {
 
     const handleSubmit = async (values) => {
         try {
+            dispatch({ type: LOADER });
             const result = await FetchClient.post({
                 url: "/signin",
                 body: values,
@@ -58,6 +64,7 @@ const Views = ({ match: { url }, history }) => {
                     });
                 }
 
+                dispatch({ type: LOADER });
                 history.push(`/app`);
             }
         } catch (e) {
