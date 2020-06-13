@@ -2,8 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/icon.ico" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="icon" href="%PUBLIC_URL%/icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -13,91 +12,13 @@
     <script src="https://kit.fontawesome.com/40cf923806.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
-
-    <script>
-
-        // if ('serviceWorker' in navigator) {
-        //     window.addEventListener('load', function() {
-        //         navigator.serviceWorker.register('investorWallet-client/worker.js').then(function(registration) {
-        //             console.log('Worker registration successful', registration.scope);
-        //         }, function(err) {
-        //             console.log('Worker registration failed', err);
-        //         }).catch(function(err) {
-        //             console.log(err);
-        //         });
-        //     });
-        // } else {
-        //     console.log('Service Worker is not supported by browser.');
-        // }
-    </script>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <title>Investor Wallet</title>
   </head>
   <body>
     <div id="root"></div>
-
-    <!--<div class="prompt">-->
-      <!--<p>Do you want to add this site to your home screen?</p>-->
-      <!--<button type="button" class="prompt__install">Yes Please</button>-->
-      <!--<button type="button" class="prompt__close">No Thanks</button>-->
-    <!--</div>-->
   <script>
-      // const prompt = document.querySelector('.prompt');
-      // const installButton = prompt.querySelector('.prompt__install');
-      // const closeButton = prompt.querySelector('.prompt__close');
-      // let installEvent;
-      //
-      // function getVisited() {
-      //     return localStorage.getItem('install-prompt');
-      // }
-      //
-      // function setVisited() {
-      //     localStorage.setItem('install-prompt', true);
-      // }
-      //
-      // // this event will only fire if the user does not have the pwa installed
-      // window.addEventListener('beforeinstallprompt', (event) => {
-      //     event.preventDefault();
-      //
-      //     // if no localStorage is set, first time visitor
-      //     if (!getVisited()) {
-      //         // show the prompt banner
-      //         prompt.style.display = 'block';
-      //
-      //         // store the event for later use
-      //         installEvent = event;
-      //     }
-      // });
-      //
-      // installButton.addEventListener('click', () => {
-      //     // hide the prompt banner
-      //     prompt.style.display = 'none';
-      //
-      //     // trigger the prompt to show to the user
-      //     installEvent.prompt();
-      //
-      //     // check what choice the user made
-      //     installEvent.userChoice.then((choice) => {
-      //         // if the user declined, we don't want to show the button again
-      //         // set localStorage to true
-      //         if (choice.outcome !== 'accepted') {
-      //             setVisited();
-      //         }
-      //
-      //         installEvent = null;
-      //     });
-      // });
-      //
-      // closeButton.addEventListener('click', () => {
-      //     // set localStorage to true
-      //     setVisited();
-      //
-      //     // hide the prompt banner
-      //     prompt.style.display = 'none';
-      //
-      //     installEvent = null;
-      // });
-
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
 
