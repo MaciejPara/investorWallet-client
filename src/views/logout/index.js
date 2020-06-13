@@ -56,7 +56,7 @@ const Views = ({ match: { url }, history }) => {
         if (user?.email) {
             logout();
         }
-    });
+    }, []);
 
     return <></>;
 };
