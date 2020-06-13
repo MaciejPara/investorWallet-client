@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useStore } from "react-redux";
-import { LOGOUT_USER } from "../../redux/actions";
+import { LOADER, LOGOUT_USER } from "../../redux/actions";
 import FetchClient from "../../utils/FetchClient";
 import { store } from "react-notifications-component";
 
@@ -13,10 +13,13 @@ const Views = ({ match: { url }, history }) => {
 
     const logout = async () => {
         try {
+            dispatch({ type: LOADER });
+
             const result = await FetchClient.get({
                 url: "/signout",
             });
 
+            dispatch({ type: LOADER });
             if (result?.status === 200) {
                 localStorage.setItem("investorWalletUser", "");
 
@@ -44,6 +47,7 @@ const Views = ({ match: { url }, history }) => {
                 });
             }
         } catch (e) {
+            dispatch({ type: LOADER });
             console.error(e);
         }
     };

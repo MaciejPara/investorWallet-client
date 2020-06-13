@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useStore, useDispatch } from "react-redux";
-import { SET_USER_FAVOURITES } from "../../redux/actions";
+import { SET_USER_FAVOURITES, LOADER } from "../../redux/actions";
 import CategoryItem from "../../components/categoryItem";
 
 const Content = ({ data = [], match: { url } }) => {
@@ -26,9 +26,13 @@ const Content = ({ data = [], match: { url } }) => {
             newFavourites = newFavourites.filter((item) => item !== value);
         } else newFavourites.push(value);
 
+        dispatch({ type: LOADER });
+
         const result = await userSettingsAdapter.changeFavourites(
             newFavourites
         );
+
+        dispatch({ type: LOADER });
 
         if (result?.ok) {
             dispatch({ type: SET_USER_FAVOURITES, payload: newFavourites });
