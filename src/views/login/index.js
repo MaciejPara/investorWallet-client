@@ -34,6 +34,8 @@ const Views = ({ match: { url }, history }) => {
                 body: values,
             });
 
+            dispatch({ type: LOADER });
+
             if (result) {
                 localStorage.setItem(
                     "investorWalletUser",
@@ -64,7 +66,6 @@ const Views = ({ match: { url }, history }) => {
                     });
                 }
 
-                dispatch({ type: LOADER });
                 history.push(`/app`);
             }
         } catch (e) {

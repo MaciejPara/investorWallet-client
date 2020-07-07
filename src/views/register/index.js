@@ -35,6 +35,8 @@ const Views = ({ match: { url }, history }) => {
 
             setSubmitting(false);
 
+            dispatch({ type: LOADER });
+
             if (result) {
                 store.addNotification({
                     title: "Success",
@@ -50,7 +52,6 @@ const Views = ({ match: { url }, history }) => {
                     },
                 });
 
-                dispatch({ type: LOADER });
                 history.push(`/login`);
             }
         } catch (e) {
