@@ -10,6 +10,7 @@ const Category = (props) => {
     const dispatch = useDispatch();
     const { settings } = useStore().getState();
     const [data, setData] = useState(null);
+    const [updateDate, setUpdateDate] = useState("");
 
     useEffect(() => {
         if (model?.shouldRefresh()) {
@@ -25,10 +26,14 @@ const Category = (props) => {
     }, []);
 
     useSelector(({ collections }) => {
-        const newData = collections[model?.getCategoryName()]?.data;
+        const { data: newData, updateDate: newUpdateDate = "" } =
+            collections[model?.getCategoryName()] || {};
 
         if (JSON.stringify(newData) !== JSON.stringify(data)) {
             setData(newData);
+        }
+        if (newUpdateDate !== updateDate) {
+            setUpdateDate(newUpdateDate);
         }
     });
 
@@ -39,7 +44,11 @@ const Category = (props) => {
                     {data !== null ? (
                         <>
                             {data?.length > 0 ? (
-                                <Content {...props} data={data} />
+                                <Content
+                                    {...props}
+                                    data={data}
+                                    updateDate={updateDate}
+                                />
                             ) : (
                                 <p>No results..</p>
                             )}

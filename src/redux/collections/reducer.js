@@ -1,4 +1,4 @@
-import { SET_DATA, SET_INIT_FLAG } from "../actions";
+import { SET_DATA, SET_INIT_FLAG, SET_UPDATE_DATE } from "../actions";
 import collections from "./index";
 
 const INIT_STATE = {
@@ -15,6 +15,15 @@ export default (state = INIT_STATE, { type, payload }) => {
                 [payload.category]: {
                     ...state[payload.category],
                     data: payload.data,
+                },
+            };
+        }
+        case SET_UPDATE_DATE: {
+            return {
+                ...state,
+                [payload.category]: {
+                    ...state[payload.category],
+                    updateDate: payload.updateDate,
                 },
             };
         }

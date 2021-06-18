@@ -220,6 +220,18 @@ a{
   a{
     padding: 0;
   }
+
+  &.plus{
+    color: green;
+  }
+
+  &.minus{
+    color: red;
+  }
+
+  &.equal{
+    color: gray;
+  }
 }
 
 .contentContainer{

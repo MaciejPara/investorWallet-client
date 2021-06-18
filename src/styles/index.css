@@ -197,6 +197,15 @@ a:hover {
 .cell a {
   padding: 0;
 }
+.cell.plus {
+  color: green;
+}
+.cell.minus {
+  color: red;
+}
+.cell.equal {
+  color: gray;
+}
 
 .contentContainer {
   max-width: 400px;

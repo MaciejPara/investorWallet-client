@@ -99,6 +99,7 @@ const MainAppView = ({ match: { url } }) => {
                             <span className={"tableHeader m-auto"}>
                                 Last Price
                             </span>
+                            <span className={"tableHeader m-auto"}>24h</span>
                             <span className={"tableHeader"} />
                         </div>
                         <div className={"d-flex w-100 m-auto flex-column"}>

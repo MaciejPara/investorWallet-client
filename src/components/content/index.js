@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useStore, useDispatch } from "react-redux";
 import { SET_USER_FAVOURITES, LOADER } from "../../redux/actions";
 import CategoryItem from "../../components/categoryItem";
+import moment from "moment";
 
-const Content = ({ data = [], match: { url } }) => {
+const Content = ({ updateDate, data = [], match: { url } }) => {
     const {
         authUser: {
             user: { favourites: userFavourites },
@@ -40,12 +41,16 @@ const Content = ({ data = [], match: { url } }) => {
         }
     };
 
+    const date = moment(updateDate).format("DD.MM.YYYY - HH:mm:ss");
+
     return (
         <div className={"contentContainer"}>
+            <h4>Updated: {date}</h4>
             <div className={"row w-100 m-auto d-flex"}>
                 <span className={"tableHeader"} />
                 <span className={"tableHeader"}>Name</span>
-                <span className={"tableHeader m-auto"}>Last Price</span>
+                <span className={"tableHeader m-auto"}>Price</span>
+                <span className={"tableHeader m-auto"}>24h</span>
                 <span className={"tableHeader"} />
             </div>
             <div className={"d-flex w-100 m-auto flex-column"}>
@@ -54,6 +59,10 @@ const Content = ({ data = [], match: { url } }) => {
                         key={key}
                         name={name}
                         rate={rate}
+                        dayChange={{
+                            difference: -0.05,
+                            differenceInPercent: "-0.5%",
+                        }}
                         url={url}
                         favourites={favourites}
                         handleFavouriteChange={handleFavouriteChange}

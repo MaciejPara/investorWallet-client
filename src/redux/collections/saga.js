@@ -1,5 +1,5 @@
-import { call, put, all, fork, takeEvery } from "redux-saga/effects";
-import { GET_CATEGORY_DATA, SET_DATA } from "./actions";
+import { put, all, fork, takeEvery } from "redux-saga/effects";
+import { GET_CATEGORY_DATA, SET_DATA, SET_UPDATE_DATE } from "./actions";
 import FetchClient from "../../utils/FetchClient";
 
 export function* watchInitializeCollections() {
@@ -7,13 +7,22 @@ export function* watchInitializeCollections() {
 }
 
 export function* init({ payload: { url, category } }) {
-    const result = yield FetchClient.get({ url });
+    const [result] = yield FetchClient.get({ url });
+    const { rates, createdAt } = result || {};
 
     yield put({
         type: SET_DATA,
         payload: {
             category,
-            data: result[0]?.rates, //@todo optimize !!!
+            data: rates, //@todo optimize !!!
+        },
+    });
+
+    yield put({
+        type: SET_UPDATE_DATE,
+        payload: {
+            category,
+            updateDate: createdAt, //@todo optimize !!!
         },
     });
 }
