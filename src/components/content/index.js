@@ -15,6 +15,8 @@ const Content = ({ updateDate, data = [], match: { url } }) => {
     const dispatch = useDispatch();
 
     const [favourites, setFavourites] = useState(userFavourites);
+    const baseCurrency = userSettingsAdapter.getBase();
+    const [nameFilter, setNameFilter] = useState("");
 
     const handleFavouriteChange = async ({
         currentTarget: {
@@ -46,28 +48,43 @@ const Content = ({ updateDate, data = [], match: { url } }) => {
     return (
         <div className={"contentContainer"}>
             <h4>Updated: {date}</h4>
-            <div className={"row w-100 m-auto d-flex"}>
+            <i className="fa-solid fa-magnifying-glass" />
+            <div className={"tableHeaderContainer row w-100 m-auto d-flex"}>
                 <span className={"tableHeader"} />
-                <span className={"tableHeader"}>Name</span>
+                <span className={"tableHeader"}>
+                    <input
+                        type="text"
+                        placeholder={"Name 🔍"}
+                        value={nameFilter}
+                        onChange={({ currentTarget: { value } }) =>
+                            setNameFilter(value.toLowerCase())
+                        }
+                    />
+                </span>
                 <span className={"tableHeader m-auto"}>Price</span>
                 <span className={"tableHeader m-auto"}>24h</span>
                 <span className={"tableHeader"} />
             </div>
             <div className={"d-flex w-100 m-auto flex-column"}>
-                {data.map(({ name, rate }, key) => (
-                    <CategoryItem
-                        key={key}
-                        name={name}
-                        rate={rate}
-                        dayChange={{
-                            difference: -0.05,
-                            differenceInPercent: "-0.5%",
-                        }}
-                        url={url}
-                        favourites={favourites}
-                        handleFavouriteChange={handleFavouriteChange}
-                    />
-                ))}
+                {data
+                    .filter(({ name }) =>
+                        name.toLowerCase().includes(nameFilter)
+                    )
+                    .filter(({ name }) => name !== baseCurrency)
+                    .map(({ name, rate }, key) => (
+                        <CategoryItem
+                            key={key}
+                            name={name}
+                            rate={rate}
+                            dayChange={{
+                                difference: 0.05,
+                                differenceInPercent: "0.5%",
+                            }}
+                            url={url}
+                            favourites={favourites}
+                            handleFavouriteChange={handleFavouriteChange}
+                        />
+                    ))}
             </div>
             {/*{data.map(({ name, rate }, key) => (*/}
             {/*<p key={key}>*/}

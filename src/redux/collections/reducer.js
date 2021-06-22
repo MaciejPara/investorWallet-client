@@ -2,7 +2,7 @@ import { SET_DATA, SET_INIT_FLAG, SET_UPDATE_DATE } from "../actions";
 import collections from "./index";
 
 const INIT_STATE = {
-    categories: ["currencies", "crypto", "metals"],
+    categories: ["currencies", "crypto", "metals", "stocks"],
     initFlag: false,
     ...collections,
 };

@@ -9,7 +9,7 @@ import { GET_CATEGORY_DATA } from "../../redux/collections/actions";
 import { SET_SETTINGS } from "../../redux/settings/actions";
 import { LOADER } from "../../redux/actions";
 
-const MainAppView = React.lazy(() => import("./main"));
+const FavouritesComponent = React.lazy(() => import("./main"));
 const CategoryComponent = React.lazy(() => import("./category"));
 
 const Views = (props) => {
@@ -69,7 +69,12 @@ const Views = (props) => {
                     <Route
                         exact
                         path={`${url}/`}
-                        render={(props) => <MainAppView {...props} />}
+                        render={(props) => <div>main page</div>}
+                    />
+                    <Route
+                        exact
+                        path={`${url}/favourites`}
+                        render={(props) => <FavouritesComponent {...props} />}
                     />
                     {collections?.categories.map((item, key) => (
                         <Route

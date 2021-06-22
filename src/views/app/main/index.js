@@ -20,6 +20,7 @@ const MainAppView = ({ match: { url } }) => {
 
     const [favourites, setFavourites] = useState(userFavourites);
     const [favouritesRates, setFavouritesRates] = useState([]);
+    const [nameFilter, setNameFilter] = useState("");
 
     useSelector(({ collections, settings: { base } }) => {
         const foundRates = [];
@@ -93,21 +94,40 @@ const MainAppView = ({ match: { url } }) => {
                 <h4>Favourites:</h4>
                 {favourites.length > 0 ? (
                     <>
-                        <div className={"row w-100 m-auto d-flex"}>
-                            <span className={"tableHeader"} />
-                            <span className={"tableHeader"}>Name</span>
+                        <div
+                            className={
+                                "tableHeaderContainer row w-100 m-auto d-flex"
+                            }
+                        >
+                            <span className={"tableHeader fixWidth"} />
+                            <span className={"tableHeader"}>
+                                {" "}
+                                <input
+                                    type="text"
+                                    placeholder={"Name 🔍"}
+                                    value={nameFilter}
+                                    onChange={({ currentTarget: { value } }) =>
+                                        setNameFilter(value.toLowerCase())
+                                    }
+                                />
+                            </span>
+                            {/*<span className={"tableHeader"}>Category</span>*/}
                             <span className={"tableHeader m-auto"}>
                                 Last Price
                             </span>
                             <span className={"tableHeader m-auto"}>24h</span>
-                            <span className={"tableHeader"} />
+                            <span className={"tableHeader fixWidth"} />
                         </div>
                         <div className={"d-flex w-100 m-auto flex-column"}>
-                            {favouritesRates.map(
-                                ({ name: item, rate }, key) => (
+                            {favouritesRates
+                                .filter(({ name }) =>
+                                    name.toLowerCase().includes(nameFilter)
+                                )
+                                .map(({ name: item, rate, category }, key) => (
                                     <CategoryItem
                                         key={key}
                                         name={item}
+                                        category={category}
                                         rate={rate}
                                         url={url}
                                         favourites={favourites}
@@ -115,8 +135,7 @@ const MainAppView = ({ match: { url } }) => {
                                             handleFavouriteChange
                                         }
                                     />
-                                )
-                            )}
+                                ))}
                         </div>
                     </>
                 ) : (

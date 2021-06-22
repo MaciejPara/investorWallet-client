@@ -20,14 +20,20 @@ code {
   padding-bottom: 65px;
 }
 
+.overlay {
+  background-color: rgba(192, 255, 0, 0.06);
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
 .loader {
   width: 50px;
   height: 50px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
   margin: auto;
 }
 
@@ -187,28 +193,57 @@ a:hover {
   opacity: 1;
 }
 
-.tableHeader {
+.tableHeaderContainer .tableHeader {
   padding: 5px 15px;
+  width: 20%;
+}
+.tableHeaderContainer .tableHeader input {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  text-align: center;
+  width: 100%;
+}
+.tableHeaderContainer .tableHeader input::placeholder {
+  color: #fff;
+}
+.tableHeaderContainer .tableHeader.fixWidth {
+  padding: 5px 24px;
+}
+.tableHeaderContainer::after {
+  content: "";
+  width: 100%;
+  border-bottom: 1px solid #c0ff00;
 }
 
-.cell {
-  padding: 5px 15px;
+.categoryItem::after {
+  content: "";
+  width: 100%;
+  box-shadow: 0px 0px 3px 0.1px #c0ff00;
 }
-.cell a {
+.categoryItem .cell {
+  padding: 5px 15px;
+  text-align: center;
+  width: 20%;
+}
+.categoryItem .cell a {
   padding: 0;
 }
-.cell.plus {
+.categoryItem .cell.difference {
+  font-size: 1.1rem;
+}
+.categoryItem .cell.plus {
   color: green;
 }
-.cell.minus {
+.categoryItem .cell.minus {
   color: red;
 }
-.cell.equal {
+.categoryItem .cell.equal {
   color: gray;
 }
 
 .contentContainer {
-  max-width: 400px;
+  max-width: 800px;
   margin: auto;
 }
 

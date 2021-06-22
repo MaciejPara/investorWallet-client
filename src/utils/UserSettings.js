@@ -13,6 +13,8 @@ class UserSettings {
             JSON.stringify({ base })
         );
 
+        this._options.base = base;
+
         return await FetchClient.update({
             url: `${this._baseUrl}/${id}`,
             body: { "settings.base": base },
@@ -29,6 +31,10 @@ class UserSettings {
 
     setOptions(options) {
         this._options = { ...this._options, ...options };
+    }
+
+    getBase() {
+        return this._options.base;
     }
 }
 

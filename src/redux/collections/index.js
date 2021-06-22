@@ -25,4 +25,12 @@ export default {
         }),
         data: [],
     },
+    stocks: {
+        model: new Model({
+            name: "stockRate",
+            plural: "stockRates",
+            categoryName: "stocks",
+        }),
+        data: [],
+    },
 };

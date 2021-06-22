@@ -7,6 +7,11 @@ const menuItems = [
         path: "",
     },
     {
+        label: "Favourites",
+        name: "favourites",
+        path: "/favourites",
+    },
+    {
         label: "Currencies",
         name: "currencies",
         path: "/currencies",
@@ -20,6 +25,11 @@ const menuItems = [
         label: "Metals",
         name: "metals",
         path: "/metals",
+    },
+    {
+        label: "Stocks",
+        name: "stocks",
+        path: "/stocks",
     },
 ];
 

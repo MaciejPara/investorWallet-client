@@ -7,6 +7,7 @@ const CategoryItem = ({
     name,
     favourites,
     rate,
+    category,
     dayChange = { difference: 0 },
     url,
 }) => {
@@ -26,17 +27,16 @@ const CategoryItem = ({
     };
 
     return (
-        <div className={"row w-100 m-auto d-flex"}>
+        <div className={"categoryItem row w-100 m-auto d-flex"}>
             <FavouriteComponent
                 handleChange={handleFavouriteChange}
                 name={name}
                 state={favourites.indexOf(name) > -1}
             />
             <span className={"cell"}>{name}</span>
-            <span className={"cell m-auto"}>
-                {parseFloat(1 / rate).toFixed(2)}
-            </span>
-            <span className={`cell m-auto ${differenceCSSClass()}`}>
+            {category && <span className={"cell"}>{category}</span>}
+            <span className={"cell m-auto"}>{parseFloat(rate).toFixed(2)}</span>
+            <span className={`cell m-auto difference ${differenceCSSClass()}`}>
                 {dayChange.difference &&
                     `${dayChange.difference}(${dayChange.differenceInPercent})`}
             </span>
@@ -45,6 +45,7 @@ const CategoryItem = ({
                     <i className="fas fa-ellipsis-h" />
                 </Link>
             </span>
+            <div id="box" className="box-shadow"></div>
         </div>
     );
 };
