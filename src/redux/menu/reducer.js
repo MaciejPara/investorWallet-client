@@ -2,7 +2,7 @@ import { MENU_CHANGE } from "../actions";
 
 const menuItems = [
     {
-        label: "Home",
+        label: "Wallet",
         name: "home",
         path: "",
     },
@@ -55,8 +55,8 @@ export default (state = INIT_STATE, action) => {
         case MENU_CHANGE: {
             return { ...state, current: action.payload };
         }
-
-        default:
+        default: {
             return { ...state };
+        }
     }
 };

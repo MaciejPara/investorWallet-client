@@ -86,13 +86,6 @@ const Content = ({ updateDate, data = [], match: { url } }) => {
                         />
                     ))}
             </div>
-            {/*{data.map(({ name, rate }, key) => (*/}
-            {/*<p key={key}>*/}
-            {/*{base} {moment.utc(createdAt).format("YYYY-MM-DD HH:mm:ss")}{" "}*/}
-            {/*{moment.utc(date).format("YYYY-MM-DD HH:mm:ss")}*/}
-            {/*<Link to={`${url}/${_id}`}>details</Link>*/}
-            {/*</p>*/}
-            {/*))}*/}
         </div>
     );
 };
