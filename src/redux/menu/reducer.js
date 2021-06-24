@@ -16,11 +16,11 @@ const menuItems = [
         name: "currencies",
         path: "/currencies",
     },
-    {
-        label: "Crypto",
-        name: "crypto",
-        path: "/crypto",
-    },
+    // {
+    //     label: "Crypto",
+    //     name: "crypto",
+    //     path: "/crypto",
+    // },
     {
         label: "Metals",
         name: "metals",

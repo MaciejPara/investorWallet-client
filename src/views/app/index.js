@@ -11,6 +11,7 @@ import { LOADER } from "../../redux/actions";
 
 const FavouritesComponent = React.lazy(() => import("./main"));
 const CategoryComponent = React.lazy(() => import("./category"));
+const WalletComponent = React.lazy(() => import("./wallet"));
 
 const Views = (props) => {
     const {
@@ -69,7 +70,7 @@ const Views = (props) => {
                     <Route
                         exact
                         path={`${url}/`}
-                        render={(props) => <div>main page</div>}
+                        render={(props) => <WalletComponent {...props} />}
                     />
                     <Route
                         exact

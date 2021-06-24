@@ -241,6 +241,16 @@ a:hover {
 .categoryItem .cell.equal {
   color: gray;
 }
+.categoryItem .cell.actions a {
+  background-color: unset !important;
+  border: none;
+}
+.categoryItem .cell.actions a i {
+  color: #fff;
+}
+.categoryItem .cell.actions a i:hover {
+  color: #c0ff00;
+}
 
 .contentContainer {
   max-width: 800px;
@@ -266,6 +276,183 @@ a:hover {
   width: 100px;
   background-color: transparent;
   margin-left: 5px;
+}
+
+.addIcon {
+  font-size: 30px;
+}
+
+.addTransactionButton {
+  display: flex;
+  margin: auto;
+  background-color: transparent;
+  border: 1px solid #c0ff00;
+  outline: 0 !important;
+  color: #c0ff00;
+  text-align: center;
+  padding: 10px 40px;
+  -webkit-transition: all ease 0.2s;
+  -moz-transition: all ease 0.2s;
+  -ms-transition: all ease 0.2s;
+  -o-transition: all ease 0.2s;
+  transition: all ease 0.2s;
+}
+.addTransactionButton span, .addTransactionButton i {
+  margin: 10px;
+}
+.addTransactionButton:hover {
+  background-color: #c0ff00;
+  color: #282c34;
+}
+
+.newTransaction-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 50px auto 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 30px 0;
+}
+.newTransaction-form .fieldsContainer {
+  display: flex;
+}
+.newTransaction-form .fieldsContainer .formField {
+  width: 20%;
+  padding: 0 20px;
+}
+.newTransaction-form .fieldsContainer .formField label {
+  color: #c0ff00;
+}
+.newTransaction-form .fieldsContainer .formField input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  outline: none !important;
+  color: #fff;
+  border: 0;
+  border-bottom: 1px solid #c0ff00;
+}
+.newTransaction-form .fieldsContainer .formField.Required input {
+  border: 1px solid red !important;
+}
+@media (max-width: 740px) {
+  .newTransaction-form .fieldsContainer {
+    flex-direction: column;
+  }
+  .newTransaction-form .fieldsContainer .formField {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+.newTransaction-form .buttonsContainer {
+  width: 20%;
+  margin: auto;
+}
+.newTransaction-form .buttonsContainer .formButton {
+  width: max-content;
+  margin: auto 10px;
+  padding: 10px 15px;
+  background-color: #c0ff00;
+  color: #282c34;
+  border: 1px solid #c0ff00;
+  outline: none !important;
+  -webkit-transition: ease 0.2s;
+  -moz-transition: ease 0.2s;
+  -ms-transition: ease 0.2s;
+  -o-transition: ease 0.2s;
+  transition: ease 0.2s;
+}
+.newTransaction-form .buttonsContainer .formButton:hover {
+  background-color: #282c34;
+  color: #c0ff00;
+}
+.newTransaction-form .buttonsContainer .formButton-cancel {
+  background-color: #282c34;
+  color: #fff;
+}
+@media (max-width: 740px) {
+  .newTransaction-form .buttonsContainer {
+    width: 100%;
+  }
+  .newTransaction-form .buttonsContainer .formField {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+}
+.tableContainer div {
+  min-width: 500px;
+}
+
+.sectionTitle {
+  text-align: left;
+  margin: 0 50px 30px;
+  color: #c0ff00;
+}
+@media (max-width: 740px) {
+  .sectionTitle {
+    margin: 0 15px 20px;
+  }
+}
+
+.transactionContainer {
+  padding: 50px 0;
+}
+.transactionContainer .tableHeader {
+  width: calc(100% / 7);
+  margin: auto;
+}
+.transactionContainer.tableContainer div {
+  min-width: 700px;
+}
+.transactionContainer .transaction {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.transactionContainer .transaction .cell {
+  width: calc(100% / 7);
+  margin: auto;
+}
+.transactionContainer .transaction .cell.date {
+  font-size: 0.8rem;
+}
+@media (max-width: 740px) {
+  .transactionContainer .transaction .cell.currentPrice {
+    display: flex;
+    flex-direction: column;
+  }
+  .transactionContainer .transaction .cell.currentPrice .percentage {
+    font-size: 0.8rem;
+  }
+}
+.transactionContainer .transaction .cell.actions i {
+  cursor: pointer;
+}
+.transactionContainer .transaction .cell.actions i:hover {
+  color: #c0ff00 !important;
+}
+
+.autocomplete-item {
+  color: #000;
+  cursor: pointer;
+}
+.autocomplete-item:hover {
+  background-color: #c0ff00;
+  color: #282c34;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /*# sourceMappingURL=index.css.map */

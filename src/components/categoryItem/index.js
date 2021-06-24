@@ -40,9 +40,9 @@ const CategoryItem = ({
                 {dayChange.difference &&
                     `${dayChange.difference}(${dayChange.differenceInPercent})`}
             </span>
-            <span className={"cell"}>
+            <span className={"cell actions"}>
                 <Link to={`${url}`}>
-                    <i className="fas fa-ellipsis-h" />
+                    <i className="fas fa-info-circle" />
                 </Link>
             </span>
             <div id="box" className="box-shadow"></div>

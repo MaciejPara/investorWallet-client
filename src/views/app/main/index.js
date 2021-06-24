@@ -93,7 +93,7 @@ const MainAppView = ({ match: { url } }) => {
             <div className={"contentContainer"}>
                 <h4>Favourites:</h4>
                 {favourites.length > 0 ? (
-                    <>
+                    <div className={"tableContainer"}>
                         <div
                             className={
                                 "tableHeaderContainer row w-100 m-auto d-flex"
@@ -111,7 +111,6 @@ const MainAppView = ({ match: { url } }) => {
                                     }
                                 />
                             </span>
-                            {/*<span className={"tableHeader"}>Category</span>*/}
                             <span className={"tableHeader m-auto"}>
                                 Last Price
                             </span>
@@ -137,7 +136,7 @@ const MainAppView = ({ match: { url } }) => {
                                     />
                                 ))}
                         </div>
-                    </>
+                    </div>
                 ) : (
                     <p>No results...</p>
                 )}

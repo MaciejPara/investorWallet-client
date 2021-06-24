@@ -48,43 +48,44 @@ const Content = ({ updateDate, data = [], match: { url } }) => {
     return (
         <div className={"contentContainer"}>
             <h4>Updated: {date}</h4>
-            <i className="fa-solid fa-magnifying-glass" />
-            <div className={"tableHeaderContainer row w-100 m-auto d-flex"}>
-                <span className={"tableHeader"} />
-                <span className={"tableHeader"}>
-                    <input
-                        type="text"
-                        placeholder={"Name 🔍"}
-                        value={nameFilter}
-                        onChange={({ currentTarget: { value } }) =>
-                            setNameFilter(value.toLowerCase())
-                        }
-                    />
-                </span>
-                <span className={"tableHeader m-auto"}>Price</span>
-                <span className={"tableHeader m-auto"}>24h</span>
-                <span className={"tableHeader"} />
-            </div>
-            <div className={"d-flex w-100 m-auto flex-column"}>
-                {data
-                    .filter(({ name }) =>
-                        name.toLowerCase().includes(nameFilter)
-                    )
-                    .filter(({ name }) => name !== baseCurrency)
-                    .map(({ name, rate }, key) => (
-                        <CategoryItem
-                            key={key}
-                            name={name}
-                            rate={rate}
-                            dayChange={{
-                                difference: 0.05,
-                                differenceInPercent: "0.5%",
-                            }}
-                            url={url}
-                            favourites={favourites}
-                            handleFavouriteChange={handleFavouriteChange}
+            <div className={"tableContainer"}>
+                <div className={"tableHeaderContainer row w-100 m-auto d-flex"}>
+                    <span className={"tableHeader"} />
+                    <span className={"tableHeader"}>
+                        <input
+                            type="text"
+                            placeholder={"Name 🔍"}
+                            value={nameFilter}
+                            onChange={({ currentTarget: { value } }) =>
+                                setNameFilter(value.toLowerCase())
+                            }
                         />
-                    ))}
+                    </span>
+                    <span className={"tableHeader m-auto"}>Price</span>
+                    <span className={"tableHeader m-auto"}>24h</span>
+                    <span className={"tableHeader"} />
+                </div>
+                <div className={"d-flex w-100 m-auto flex-column"}>
+                    {data
+                        .filter(({ name }) =>
+                            name.toLowerCase().includes(nameFilter)
+                        )
+                        .filter(({ name }) => name !== baseCurrency)
+                        .map(({ name, rate }, key) => (
+                            <CategoryItem
+                                key={key}
+                                name={name}
+                                rate={rate}
+                                dayChange={{
+                                    difference: 0.05,
+                                    differenceInPercent: "0.5%",
+                                }}
+                                url={url}
+                                favourites={favourites}
+                                handleFavouriteChange={handleFavouriteChange}
+                            />
+                        ))}
+                </div>
             </div>
         </div>
     );

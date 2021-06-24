@@ -15,4 +15,3 @@ export const LOADER = "LOADER";
 export * from "./auth/actions";
 export * from "./collections/actions";
 export * from "./settings/actions";
-export * from "./menu/actions";

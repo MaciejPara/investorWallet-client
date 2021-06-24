@@ -33,4 +33,12 @@ export default {
         }),
         data: [],
     },
+    investments: {
+        model: new Model({
+            name: "investment",
+            plural: "investments",
+            categoryName: "investments",
+        }),
+        data: [],
+    },
 };
