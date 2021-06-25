@@ -262,18 +262,6 @@ a{
       font-size: 1.1rem;
     }
 
-    &.plus{
-      color: green;
-    }
-
-    &.minus{
-      color: red;
-    }
-
-    &.equal{
-      color: gray;
-    }
-
     &.actions{
       a{
         background-color: unset !important;
@@ -289,6 +277,18 @@ a{
       }
     }
   }
+}
+
+.plus{
+  color: green;
+}
+
+.minus{
+  color: red;
+}
+
+.equal{
+  color: gray;
 }
 
 .contentContainer{
@@ -369,8 +369,8 @@ a{
         background-color: rgba(255, 255, 255, 0.05);
         outline: none !important;
         color: #fff;
-        border: 0;
-        border-bottom: 1px solid $basicGreen;
+        border: 1px solid transparent;
+        border-bottom-color: $basicGreen;
       }
 
       &.Required{
@@ -448,7 +448,7 @@ a{
 }
 
 .transactionContainer{
-  padding: 50px 0;
+  padding: 0 0 50px 0;
 
   .tableHeader{
     width: calc(100% / 7);

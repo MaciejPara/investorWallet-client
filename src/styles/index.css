@@ -232,15 +232,6 @@ a:hover {
 .categoryItem .cell.difference {
   font-size: 1.1rem;
 }
-.categoryItem .cell.plus {
-  color: green;
-}
-.categoryItem .cell.minus {
-  color: red;
-}
-.categoryItem .cell.equal {
-  color: gray;
-}
 .categoryItem .cell.actions a {
   background-color: unset !important;
   border: none;
@@ -250,6 +241,18 @@ a:hover {
 }
 .categoryItem .cell.actions a i:hover {
   color: #c0ff00;
+}
+
+.plus {
+  color: green;
+}
+
+.minus {
+  color: red;
+}
+
+.equal {
+  color: gray;
 }
 
 .contentContainer {
@@ -328,8 +331,8 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.05);
   outline: none !important;
   color: #fff;
-  border: 0;
-  border-bottom: 1px solid #c0ff00;
+  border: 1px solid transparent;
+  border-bottom-color: #c0ff00;
 }
 .newTransaction-form .fieldsContainer .formField.Required input {
   border: 1px solid red !important;
@@ -399,7 +402,7 @@ a:hover {
 }
 
 .transactionContainer {
-  padding: 50px 0;
+  padding: 0 0 50px 0;
 }
 .transactionContainer .tableHeader {
   width: calc(100% / 7);

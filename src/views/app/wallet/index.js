@@ -20,6 +20,17 @@ const WalletComponent = () => {
     const [whatAutocomplete, setWhatAutocomplete] = useState("");
     const [fromAutocomplete, setFromAutocomplete] = useState("");
     const [amountOfWallet, setAmountOfWallet] = useState(0);
+    const [startAmountOfWallet, setStartAmountOfWallet] = useState(0);
+    const [autocompleteStyles, setAutocompleteStyles] = useState({
+        borderRadius: "3px",
+        boxShadow: "0 2px 12px rgba(0, 0, 0, 0.1)",
+        background: "rgba(255, 255, 255, 0.9)",
+        padding: "2px 0",
+        fontSize: "90%",
+        position: "fixed",
+        overflow: "auto",
+        maxHeight: "200px",
+    });
 
     useSelector(({ collections, settings: { base } }) => {
         if (!collections.initFlag) {
@@ -85,11 +96,16 @@ const WalletComponent = () => {
     );
 
     useEffect(() => {
-        let result = 0;
+        let currentResult = 0;
+        let priceResult = 0;
 
-        transactions.forEach(({ currentPrice }) => (result += currentPrice));
+        transactions.forEach(({ price, currentPrice }) => {
+            currentResult += parseFloat(currentPrice);
+            priceResult += parseFloat(price);
+        });
 
-        setAmountOfWallet(result);
+        setAmountOfWallet(currentResult.toFixed(2));
+        setStartAmountOfWallet(priceResult.toFixed(2));
     }, [transactions]);
 
     useEffect(() => {
@@ -103,11 +119,7 @@ const WalletComponent = () => {
             if (result.length !== transactions.length) {
                 setTransactions(
                     result.map((item) => {
-                        const found = autocompleteItems.find(
-                            ({ value }) => item.what.toLowerCase() === value
-                        );
-
-                        const currentPrice = found?.rate * item.count || 0;
+                        const currentPrice = getCurrentPrice(item);
 
                         return {
                             ...item,
@@ -116,6 +128,9 @@ const WalletComponent = () => {
                             currentPricePercentage: calcPercentage(
                                 item.price,
                                 currentPrice
+                            ),
+                            createdAt: moment(item.createdAt.toString()).format(
+                                "DD.MM.YYYY - HH:mm:ss"
                             ),
                         };
                     })
@@ -126,6 +141,17 @@ const WalletComponent = () => {
 
     const userId = useSelector(({ ...store }) => store.authUser.user._id);
 
+    const getCurrentPrice = (item) => {
+        const found = autocompleteItems.find(
+            ({ value }) => item.what.toLowerCase() === value
+        );
+        const foundFrom = autocompleteItems.find(
+            ({ value }) => item.from.toLowerCase() === value
+        );
+
+        return ((found?.rate * item.count) / foundFrom?.rate || 0).toFixed(2);
+    };
+
     const handleAddTransaction = () => {
         setNewTransaction(true);
     };
@@ -134,7 +160,7 @@ const WalletComponent = () => {
         const investment = {
             id: Date.now(),
             ...data,
-            currentPrice: data.price,
+            currentPrice: getCurrentPrice(data),
         };
 
         try {
@@ -156,6 +182,10 @@ const WalletComponent = () => {
             ...transactions,
             {
                 ...investment,
+                currentPricePercentage: calcPercentage(
+                    investment.price,
+                    investment.currentPrice
+                ),
                 createdAt: moment(new Date().toString()).format(
                     "DD.MM.YYYY - HH:mm:ss"
                 ),
@@ -195,17 +225,29 @@ const WalletComponent = () => {
     };
 
     const calcPercentage = (price, currentPrice) => {
-        return ((currentPrice / price) * 100 - 100).toFixed(1);
+        return ((currentPrice / price) * 100 - 100 || 0).toFixed(1);
     };
 
     const getDifferenceClass = (price) => {
         return price > 0 ? "plus" : "minus";
     };
 
+    const walletPercentage = calcPercentage(
+        startAmountOfWallet,
+        amountOfWallet
+    );
+
     return (
         <div>
-            <h2 className={"sectionTitle"}>
-                Amount in the wallet: {amountOfWallet || 0}
+            <h2 className={`sectionTitle`}>
+                Amount in the wallet:{" "}
+                <span
+                    className={`difference ${getDifferenceClass(
+                        walletPercentage
+                    )}`}
+                >
+                    {amountOfWallet || 0} | {walletPercentage}%
+                </span>
             </h2>
 
             <button
@@ -247,6 +289,7 @@ const WalletComponent = () => {
                                             wrapperStyle={{
                                                 width: "100%",
                                             }}
+                                            menuStyle={autocompleteStyles}
                                             getItemValue={(item) => item.label}
                                             items={autocompleteItems.filter(
                                                 ({ value }) =>
@@ -303,6 +346,7 @@ const WalletComponent = () => {
                                             wrapperStyle={{
                                                 width: "100%",
                                             }}
+                                            menuStyle={autocompleteStyles}
                                             getItemValue={(item) => item.label}
                                             items={fromAutocompleteItems.filter(
                                                 ({ value }) =>
@@ -378,10 +422,14 @@ const WalletComponent = () => {
                     </Formik>
                 </div>
             )}
+            {transactions.length ? (
+                <h3 className={"sectionTitle mt-4"}>Investments:</h3>
+            ) : (
+                ""
+            )}
             <div className={"transactionContainer tableContainer"}>
                 {transactions.length ? (
                     <div>
-                        <h3 className={"sectionTitle"}>Investments:</h3>
                         <div
                             className={
                                 "tableHeaderContainer row w-100 m-auto d-flex"
@@ -450,7 +498,7 @@ const WalletComponent = () => {
                                     <span className={"cell"}>{from}</span>
                                     <span className={"cell"}>{price}</span>
                                     <span
-                                        className={`cell m-auto difference ${getDifferenceClass(
+                                        className={`cell m-auto ${getDifferenceClass(
                                             currentPricePercentage
                                         )} currentPrice`}
                                     >
