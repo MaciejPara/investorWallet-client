@@ -22,6 +22,7 @@ const Views = ({ match: { url }, history }) => {
             dispatch({ type: LOADER });
             if (result?.status === 200) {
                 localStorage.setItem("investorWalletUser", "");
+                localStorage.setItem("investorWalletUserSettings", "");
 
                 dispatch({
                     type: LOGOUT_USER,

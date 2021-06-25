@@ -79,6 +79,44 @@ const App = (props) => {
                         />
                         <Route
                             exact
+                            path={`/confirm`}
+                            render={(props) => (
+                                <ViewLogin
+                                    {...props}
+                                    message={
+                                        <div>
+                                            <p className={"m-0"}>
+                                                Successfully confirmed an email.
+                                            </p>
+                                            <p className={"m-0"}>
+                                                Please log in
+                                            </p>
+                                        </div>
+                                    }
+                                />
+                            )}
+                        />
+                        <Route
+                            exact
+                            path={`/alreadyExists`}
+                            render={(props) => (
+                                <ViewLogin
+                                    {...props}
+                                    message={
+                                        <div>
+                                            <p className={"m-0"}>
+                                                Email already exists
+                                            </p>
+                                            <p className={"m-0"}>
+                                                Please log in
+                                            </p>
+                                        </div>
+                                    }
+                                />
+                            )}
+                        />
+                        <Route
+                            exact
                             path={`/login`}
                             render={(props) => <ViewLogin {...props} />}
                         />

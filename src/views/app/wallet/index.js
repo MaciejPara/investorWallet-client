@@ -108,38 +108,40 @@ const WalletComponent = () => {
         setStartAmountOfWallet(priceResult.toFixed(2));
     }, [transactions]);
 
+    const userId = useSelector(({ ...store }) => store.authUser.user.id);
+
     useEffect(() => {
-        (async () => {
-            const result = await FetchClient.get({
-                url: `/investments?filter=${JSON.stringify({
-                    userId: userId,
-                })}`,
-            });
+        if (userId) {
+            (async () => {
+                const result = await FetchClient.get({
+                    url: `/investments?filter=${JSON.stringify({
+                        userId: userId,
+                    })}`,
+                });
 
-            if (result.length !== transactions.length) {
-                setTransactions(
-                    result.map((item) => {
-                        const currentPrice = getCurrentPrice(item);
+                if (result.length !== transactions.length) {
+                    setTransactions(
+                        result.map((item) => {
+                            const currentPrice = getCurrentPrice(item);
 
-                        return {
-                            ...item,
-                            id: item._id,
-                            currentPrice,
-                            currentPricePercentage: calcPercentage(
-                                item.price,
-                                currentPrice
-                            ),
-                            createdAt: moment(item.createdAt.toString()).format(
-                                "DD.MM.YYYY - HH:mm:ss"
-                            ),
-                        };
-                    })
-                );
-            }
-        })();
-    }, [transactions, autocompleteItems]);
-
-    const userId = useSelector(({ ...store }) => store.authUser.user._id);
+                            return {
+                                ...item,
+                                id: item._id,
+                                currentPrice,
+                                currentPricePercentage: calcPercentage(
+                                    item.price,
+                                    currentPrice
+                                ),
+                                createdAt: moment(
+                                    item.createdAt.toString()
+                                ).format("DD.MM.YYYY - HH:mm:ss"),
+                            };
+                        })
+                    );
+                }
+            })();
+        }
+    }, [transactions, autocompleteItems, userId]);
 
     const getCurrentPrice = (item) => {
         const found = autocompleteItems.find(

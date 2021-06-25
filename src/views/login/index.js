@@ -11,7 +11,7 @@ import { store } from "react-notifications-component";
 import FetchClient from "../../utils/FetchClient";
 import { NavLink } from "react-router-dom";
 
-const Views = ({ match: { url }, history }) => {
+const Views = ({ match: { url }, history, message }) => {
     const [credentials] = useState({ email: "", password: "" });
     const dispatch = useDispatch();
 
@@ -25,6 +25,24 @@ const Views = ({ match: { url }, history }) => {
             history.push(`/app`);
         }
     });
+
+    useEffect(() => {
+        if (message) {
+            store.addNotification({
+                title: "Info",
+                message: message,
+                type: "info",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animated", "fadeIn"],
+                animationOut: ["animated", "fadeOut"],
+                dismiss: {
+                    duration: 5000,
+                    onScreen: true,
+                },
+            });
+        }
+    }, [message]);
 
     const handleSubmit = async (values) => {
         try {

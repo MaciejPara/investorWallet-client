@@ -8,14 +8,14 @@ export function* watchUserGet() {
 
 export function* init({ payload: { url } }) {
     try {
-        const user = yield FetchClient.get({ url });
+        const [user] = yield FetchClient.get({ url });
 
         user.id = user._id;
         delete user._id;
 
         yield put({
             type: SET_USER,
-            payload: (user && user[0]) || null,
+            payload: user || null,
         });
     } catch (e) {
         console.error(e);
