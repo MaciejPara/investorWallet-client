@@ -1,0 +1,2 @@
+(this.webpackJsonpapp=this.webpackJsonpapp||[]).push([[15],{102:function(e,n,t){"use strict";t.r(n);t(2);var c=t(65),s=t(8);n.default=function(){return Object(s.jsxs)("div",{children:[Object(s.jsx)("h1",{children:"Sorry, something went wrong.."}),Object(s.jsx)(c.c,{className:"d-inline-flex mr-1 ml-1",to:"/",children:"Back to home"})]})}}}]);
+//# sourceMappingURL=15.f08796f0.chunk.js.map
