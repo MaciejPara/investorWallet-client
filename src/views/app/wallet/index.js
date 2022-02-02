@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
-import Autocomplete from "react-autocomplete";
 import {
     GET_CATEGORY_DATA,
     SET_INIT_FLAG,
 } from "../../../redux/collections/actions";
 import FetchClient from "../../../utils/FetchClient";
+import TransactionEditor from "../../../components/transactionEditor";
+import { store } from "react-notifications-component";
+import { NavLink } from "react-router-dom";
 
 const WalletComponent = () => {
     const dispatch = useDispatch();
     const [transactions, setTransactions] = useState([]);
-    const [isNewTransaction, setNewTransaction] = useState(true);
+    const [isNewTransaction, setNewTransaction] = useState(false);
     const [whatFilter, setWhatFilter] = useState("");
     const [fromFilter, setFromFilter] = useState("");
     const [autocompleteItems, setAutocompleteItems] = useState([]);
@@ -21,6 +23,7 @@ const WalletComponent = () => {
     const [fromAutocomplete, setFromAutocomplete] = useState("");
     const [amountOfWallet, setAmountOfWallet] = useState(0);
     const [startAmountOfWallet, setStartAmountOfWallet] = useState(0);
+    const [editId, setEditId] = useState();
     const [autocompleteStyles, setAutocompleteStyles] = useState({
         borderRadius: "3px",
         boxShadow: "0 2px 12px rgba(0, 0, 0, 0.1)",
@@ -174,7 +177,7 @@ const WalletComponent = () => {
                 },
             });
 
-            console.log(">>> ", result);
+            investment.id = result?._id || investment.id;
         } catch (e) {
             console.error(e);
         }
@@ -195,6 +198,79 @@ const WalletComponent = () => {
         ]);
     };
 
+    const handleEdit = async (data) => {
+        const investment = transactions.find(({ id }) => id === editId);
+
+        const updateData = {
+            count: data.count,
+            price: data.price,
+        };
+
+        try {
+            const { ok } =
+                (await FetchClient.update({
+                    url: `/investment/${investment.id}`,
+                    body: updateData,
+                })) || {};
+
+            if (ok) {
+                const currentPrice = getCurrentPrice({
+                    ...investment,
+                    ...updateData,
+                });
+
+                setEditId();
+                setTransactions(
+                    transactions.map((item) => {
+                        if (item.id === investment.id) {
+                            item = {
+                                ...item,
+                                ...updateData,
+                                currentPrice,
+                                currentPricePercentage: calcPercentage(
+                                    data.price,
+                                    currentPrice
+                                ),
+                            };
+                        }
+
+                        return item;
+                    })
+                );
+
+                store.addNotification({
+                    title: "Update",
+                    message: "Investment successfully updated",
+                    type: "success",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeIn"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                        duration: 5000,
+                        onScreen: true,
+                    },
+                });
+            } else {
+                store.addNotification({
+                    title: "Update",
+                    message: "Update error, please try again",
+                    type: "error",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeIn"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                        duration: 5000,
+                        onScreen: true,
+                    },
+                });
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     const filterTransactions = ({ what, from }) => {
         return (
             what.toLowerCase().includes(whatFilter) &&
@@ -206,6 +282,18 @@ const WalletComponent = () => {
         const errors = {};
 
         ["what", "count", "from", "price"].forEach((item) => {
+            if (!values[item]) {
+                errors[item] = "Required";
+            }
+        });
+
+        return errors;
+    };
+
+    const handleEditValidation = (values) => {
+        const errors = {};
+
+        ["count", "price"].forEach((item) => {
             if (!values[item]) {
                 errors[item] = "Required";
             }
@@ -242,7 +330,7 @@ const WalletComponent = () => {
     return (
         <div>
             <h2 className={`sectionTitle`}>
-                Amount in the wallet:{" "}
+                Wallet ammount:{" "}
                 <span
                     className={`difference ${getDifferenceClass(
                         walletPercentage
@@ -260,169 +348,18 @@ const WalletComponent = () => {
                 <i className="fa-solid fa-plus addIcon" />
             </button>
             {isNewTransaction && (
-                <div className={"newTransaction"}>
-                    <Formik
-                        initialValues={{
-                            what: "",
-                            count: "",
-                            from: "",
-                            price: "",
-                        }}
-                        validate={handleValidation}
-                        onSubmit={handleSubmit}
-                    >
-                        {({
-                            values,
-                            errors,
-                            touched,
-                            handleChange,
-                            handleBlur,
-                            handleSubmit,
-                            isSubmitting,
-                        }) => (
-                            <form
-                                className={"newTransaction-form"}
-                                onSubmit={handleSubmit}
-                            >
-                                <div className={"fieldsContainer"}>
-                                    <div className={`formField ${errors.what}`}>
-                                        <label htmlFor="what">What</label>
-                                        <Autocomplete
-                                            wrapperStyle={{
-                                                width: "100%",
-                                            }}
-                                            menuStyle={autocompleteStyles}
-                                            getItemValue={(item) => item.label}
-                                            items={autocompleteItems.filter(
-                                                ({ value }) =>
-                                                    value.includes(
-                                                        whatAutocomplete.toLowerCase()
-                                                    )
-                                            )}
-                                            placeholder={"What"}
-                                            renderItem={({ label }) => (
-                                                <div
-                                                    className={
-                                                        "autocomplete-item"
-                                                    }
-                                                >
-                                                    {label}
-                                                </div>
-                                            )}
-                                            value={whatAutocomplete}
-                                            onChange={({
-                                                currentTarget: { value },
-                                            }) => {
-                                                setWhatAutocomplete(value);
-                                            }}
-                                            onSelect={(val) => {
-                                                handleChange({
-                                                    target: {
-                                                        name: "what",
-                                                        value: val,
-                                                    },
-                                                    currentTarget: {
-                                                        name: "what",
-                                                        value: val,
-                                                    },
-                                                });
-                                                setWhatAutocomplete(val);
-                                            }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={`formField ${errors.count}`}
-                                    >
-                                        <label htmlFor="count">Count</label>
-                                        <input
-                                            type="number"
-                                            name="count"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.count}
-                                        />
-                                    </div>
-                                    <div className={`formField ${errors.from}`}>
-                                        <label htmlFor="from">From</label>
-                                        <Autocomplete
-                                            wrapperStyle={{
-                                                width: "100%",
-                                            }}
-                                            menuStyle={autocompleteStyles}
-                                            getItemValue={(item) => item.label}
-                                            items={fromAutocompleteItems.filter(
-                                                ({ value }) =>
-                                                    value.includes(
-                                                        fromAutocomplete.toLowerCase()
-                                                    )
-                                            )}
-                                            renderItem={({ label }) => (
-                                                <div
-                                                    className={
-                                                        "autocomplete-item"
-                                                    }
-                                                >
-                                                    {label}
-                                                </div>
-                                            )}
-                                            value={fromAutocomplete}
-                                            onChange={({
-                                                currentTarget: { value },
-                                            }) => {
-                                                setFromAutocomplete(value);
-                                            }}
-                                            onSelect={(val) => {
-                                                handleChange({
-                                                    target: {
-                                                        name: "from",
-                                                        value: val,
-                                                    },
-                                                    currentTarget: {
-                                                        name: "from",
-                                                        value: val,
-                                                    },
-                                                });
-                                                setFromAutocomplete(val);
-                                            }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={`formField ${errors.price}`}
-                                    >
-                                        <label htmlFor="price">Price</label>
-                                        <input
-                                            type="number"
-                                            name="price"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.price}
-                                        />
-                                    </div>
-                                    <div className={"buttonsContainer"}>
-                                        <button
-                                            className={"formButton"}
-                                            type="submit"
-                                            disabled={isSubmitting}
-                                        >
-                                            Add
-                                        </button>
-                                        <button
-                                            className={
-                                                "formButton formButton-cancel"
-                                            }
-                                            type="cancel"
-                                            onClick={() =>
-                                                setNewTransaction(false)
-                                            }
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        )}
-                    </Formik>
-                </div>
+                <TransactionEditor
+                    handleValidation={(e) => handleValidation(e)}
+                    handleSubmit={(e) => handleSubmit(e)}
+                    whatAutocomplete={whatAutocomplete}
+                    autocompleteStyles={autocompleteStyles}
+                    autocompleteItems={autocompleteItems}
+                    setWhatAutocomplete={setWhatAutocomplete}
+                    fromAutocompleteItems={fromAutocompleteItems}
+                    fromAutocomplete={fromAutocomplete}
+                    setFromAutocomplete={setFromAutocomplete}
+                    setNewTransaction={setNewTransaction}
+                />
             )}
             {transactions.length ? (
                 <h3 className={"sectionTitle mt-4"}>Investments:</h3>
@@ -486,43 +423,79 @@ const WalletComponent = () => {
                                 },
                                 key
                             ) => (
-                                <div
-                                    key={key}
-                                    className={
-                                        "transaction categoryItem row w-100 m-auto d-flex"
-                                    }
-                                >
-                                    <span className={"cell date"}>
-                                        {createdAt}
-                                    </span>
-                                    <span className={"cell"}>{what}</span>
-                                    <span className={"cell"}>{count}</span>
-                                    <span className={"cell"}>{from}</span>
-                                    <span className={"cell"}>{price}</span>
-                                    <span
-                                        className={`cell m-auto ${getDifferenceClass(
-                                            currentPricePercentage
-                                        )} currentPrice`}
+                                <div key={key}>
+                                    <div
+                                        key={key}
+                                        className={
+                                            "transaction categoryItem row w-100 m-auto d-flex"
+                                        }
                                     >
-                                        <span>{currentPrice} | </span>
-                                        <span className={"percentage"}>
-                                            {currentPricePercentage}%
+                                        <span className={"cell date"}>
+                                            {createdAt}
                                         </span>
-                                    </span>
-                                    <span className={"cell actions"}>
-                                        <i
-                                            className="far fa-trash-alt"
-                                            onClick={() =>
-                                                handleInvestmentDelete(id)
+                                        <span className={"cell"}>{what}</span>
+                                        <span className={"cell"}>{count}</span>
+                                        <span className={"cell"}>{from}</span>
+                                        <span className={"cell"}>{price}</span>
+                                        <span
+                                            className={`cell m-auto ${getDifferenceClass(
+                                                currentPricePercentage
+                                            )} currentPrice`}
+                                        >
+                                            <span>{currentPrice} | </span>
+                                            <span className={"percentage"}>
+                                                {currentPricePercentage}%
+                                            </span>
+                                        </span>
+                                        <span className={"cell actions"}>
+                                            <i
+                                                className="far fa-trash-alt"
+                                                onClick={() =>
+                                                    handleInvestmentDelete(id)
+                                                }
+                                            />
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() => setEditId(id)}
+                                            />
+                                            <NavLink
+                                                className="d-inline-flex mr-1 ml-1"
+                                                to={`/app/details/${id}`}
+                                            >
+                                                <i className="fas fa-info-circle ml-4" />
+                                            </NavLink>
+                                        </span>
+                                    </div>
+                                    {id === editId && (
+                                        <TransactionEditor
+                                            edit={true}
+                                            handleValidation={(e) =>
+                                                handleEditValidation(e)
+                                            }
+                                            handleSubmit={(e) => handleEdit(e)}
+                                            handleCancel={() => setEditId()}
+                                            whatAutocomplete={whatAutocomplete}
+                                            autocompleteStyles={
+                                                autocompleteStyles
+                                            }
+                                            autocompleteItems={
+                                                autocompleteItems
+                                            }
+                                            setWhatAutocomplete={
+                                                setWhatAutocomplete
+                                            }
+                                            fromAutocompleteItems={
+                                                fromAutocompleteItems
+                                            }
+                                            fromAutocomplete={fromAutocomplete}
+                                            setFromAutocomplete={
+                                                setFromAutocomplete
+                                            }
+                                            setNewTransaction={
+                                                setNewTransaction
                                             }
                                         />
-                                        <i
-                                            className="fas fa-info-circle ml-4"
-                                            onClick={() =>
-                                                alert(`details ${id}`)
-                                            }
-                                        />
-                                    </span>
+                                    )}
                                 </div>
                             )
                         )}

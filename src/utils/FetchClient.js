@@ -20,7 +20,13 @@ class FetchClient extends Messages {
             ...this._config,
             method: "get",
         });
-        return await response.json();
+
+        if (response.status === 401) {
+            localStorage.removeItem("investorWalletUser");
+            window.location.href = "/";
+        } else {
+            return (response.ok && (await response.json())) || [];
+        }
     }
 
     async post({ url, body }) {

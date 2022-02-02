@@ -1,4 +1,5 @@
 $basicGreen: #c0ff00;
+$disabledGreen: #5d7d00;
 $basicGray: #282c34;
 
 body {
@@ -112,11 +113,12 @@ code {
   user-select: none;
 }
 
-a{
+a, button{
   color: $basicGreen;
   border: 1px solid transparent;
   padding: 5px 15px;
   transition: .2s;
+  background-color: transparent;
 
   @extend .disableCopy;
 
@@ -323,7 +325,7 @@ a{
 
 .addTransactionButton{
   display: flex;
-  margin: auto;
+  margin: auto 0 auto auto;
   background-color: transparent;
   border: 1px solid $basicGreen;
   outline: 0 !important;
@@ -343,6 +345,10 @@ a{
   &:hover{
     background-color: $basicGreen;
     color: $basicGray;
+  }
+
+  @media (max-width: 740px) {
+    margin: auto;
   }
 }
 
@@ -389,35 +395,9 @@ a{
       }
     }
   }
-
   .buttonsContainer {
     width: 20%;
-    margin: auto;
-    .formButton{
-      width: max-content;
-      margin: auto 10px;
-      padding: 10px 15px;
-      background-color: $basicGreen;
-      color: $basicGray;
-      border: 1px solid $basicGreen;
-      outline: none !important;
-      -webkit-transition: ease .2s;
-      -moz-transition: ease .2s;
-      -ms-transition: ease .2s;
-      -o-transition: ease .2s;
-      transition: ease .2s;
-
-      &:hover{
-        background-color: $basicGray;
-        color: $basicGreen;
-      }
-
-      &-cancel{
-        background-color: $basicGray;
-        color: #fff;
-      }
-    }
-
+    margin: auto 0 auto auto;
     @media (max-width: 740px) {
       width: 100%;
       .formField{
@@ -428,12 +408,41 @@ a{
   }
 }
 
+.formButton {
+  width: max-content;
+  margin: auto 10px;
+  padding: 10px 15px;
+  background-color: $basicGreen;
+  color: $basicGray;
+  border: 1px solid $basicGreen;
+  outline: none !important;
+  -webkit-transition: ease .2s;
+  -moz-transition: ease .2s;
+  -ms-transition: ease .2s;
+  -o-transition: ease .2s;
+  transition: ease .2s;
+
+  &:hover{
+    background-color: $basicGray;
+    color: $basicGreen;
+  }
+
+  &-cancel{
+    background-color: $basicGray;
+    color: #fff;
+  }
+
+  &:disabled {
+    background-color: $disabledGreen;
+  }
+}
+
 .tableContainer{
   width: 100%;
   overflow-x: auto;
 
-  div{
-    min-width: 500px;
+  .fieldsContainer {
+    min-width: 0;
   }
 }
 
@@ -456,8 +465,8 @@ a{
   }
 
   &.tableContainer{
-    div{
-      min-width: 700px;
+    .fieldsContainer {
+      min-width: 0;
     }
   }
 
@@ -484,7 +493,9 @@ a{
       }
 
       &.actions{
+        display: flex;
         i{
+          margin: auto;
           cursor: pointer;
           &:hover{
             color: $basicGreen !important;
@@ -515,4 +526,46 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.chartContainer {
+  max-width: 900px;
+  margin: auto;
+}
+
+.monthsSelect {
+  width: 200px;
+}
+
+.detailsView {
+  .formButton {
+    padding: 6px 20px;
+  }
+}
+
+.detailsData {
+  padding: 50px 0;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: auto;
+
+  &-item {
+    display: flex;
+    min-width: 50%;
+    color: $basicGreen;
+
+    .label {
+      color: $disabledGreen;
+      margin-right: auto;
+    }
+
+    &:nth-child(odd) {
+      padding-right: 100px;
+    }
+
+    &:nth-child(even) {
+      padding-left: 100px;
+    }
+  }
 }

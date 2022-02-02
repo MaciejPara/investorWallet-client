@@ -91,7 +91,7 @@ code {
   background-color: #fff;
 }
 
-.disableCopy, a, .form .formSubmitButton {
+.disableCopy, a, button, .form .formSubmitButton {
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -99,13 +99,14 @@ code {
   user-select: none;
 }
 
-a {
+a, button {
   color: #c0ff00;
   border: 1px solid transparent;
   padding: 5px 15px;
   transition: 0.2s;
+  background-color: transparent;
 }
-a:hover {
+a:hover, button:hover {
   text-decoration: none;
   border: 1px solid;
   background-color: #c0ff00;
@@ -286,7 +287,7 @@ a:hover {
 
 .addTransactionButton {
   display: flex;
-  margin: auto;
+  margin: auto 0 auto auto;
   background-color: transparent;
   border: 1px solid #c0ff00;
   outline: 0 !important;
@@ -305,6 +306,11 @@ a:hover {
 .addTransactionButton:hover {
   background-color: #c0ff00;
   color: #282c34;
+}
+@media (max-width: 740px) {
+  .addTransactionButton {
+    margin: auto;
+  }
 }
 
 .newTransaction-form {
@@ -347,9 +353,19 @@ a:hover {
 }
 .newTransaction-form .buttonsContainer {
   width: 20%;
-  margin: auto;
+  margin: auto 0 auto auto;
 }
-.newTransaction-form .buttonsContainer .formButton {
+@media (max-width: 740px) {
+  .newTransaction-form .buttonsContainer {
+    width: 100%;
+  }
+  .newTransaction-form .buttonsContainer .formField {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+.formButton {
   width: max-content;
   margin: auto 10px;
   padding: 10px 15px;
@@ -363,30 +379,24 @@ a:hover {
   -o-transition: ease 0.2s;
   transition: ease 0.2s;
 }
-.newTransaction-form .buttonsContainer .formButton:hover {
+.formButton:hover {
   background-color: #282c34;
   color: #c0ff00;
 }
-.newTransaction-form .buttonsContainer .formButton-cancel {
+.formButton-cancel {
   background-color: #282c34;
   color: #fff;
 }
-@media (max-width: 740px) {
-  .newTransaction-form .buttonsContainer {
-    width: 100%;
-  }
-  .newTransaction-form .buttonsContainer .formField {
-    width: 100%;
-    margin-bottom: 15px;
-  }
+.formButton:disabled {
+  background-color: #5d7d00;
 }
 
 .tableContainer {
   width: 100%;
   overflow-x: auto;
 }
-.tableContainer div {
-  min-width: 500px;
+.tableContainer .fieldsContainer {
+  min-width: 0;
 }
 
 .sectionTitle {
@@ -407,8 +417,8 @@ a:hover {
   width: calc(100% / 7);
   margin: auto;
 }
-.transactionContainer.tableContainer div {
-  min-width: 700px;
+.transactionContainer.tableContainer .fieldsContainer {
+  min-width: 0;
 }
 .transactionContainer .transaction {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -429,7 +439,11 @@ a:hover {
     font-size: 0.8rem;
   }
 }
+.transactionContainer .transaction .cell.actions {
+  display: flex;
+}
 .transactionContainer .transaction .cell.actions i {
+  margin: auto;
   cursor: pointer;
 }
 .transactionContainer .transaction .cell.actions i:hover {
@@ -455,6 +469,42 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.chartContainer {
+  max-width: 900px;
+  margin: auto;
+}
+
+.monthsSelect {
+  width: 200px;
+}
+
+.detailsView .formButton {
+  padding: 6px 20px;
+}
+
+.detailsData {
+  padding: 50px 0;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: auto;
+}
+.detailsData-item {
+  display: flex;
+  min-width: 50%;
+  color: #c0ff00;
+}
+.detailsData-item .label {
+  color: #5d7d00;
+  margin-right: auto;
+}
+.detailsData-item:nth-child(odd) {
+  padding-right: 100px;
+}
+.detailsData-item:nth-child(even) {
+  padding-left: 100px;
 }
 
 /*# sourceMappingURL=index.css.map */

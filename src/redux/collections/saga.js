@@ -7,7 +7,7 @@ export function* watchInitializeCollections() {
 }
 
 export function* init({ payload: { url, category } }) {
-    const [result] = yield FetchClient.get({ url });
+    const [result] = yield FetchClient.get({ url }) || [];
     const { rates, createdAt } = result || {};
 
     yield put({

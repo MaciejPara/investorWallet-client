@@ -114,7 +114,6 @@ const MainAppView = ({ match: { url } }) => {
                             <span className={"tableHeader m-auto"}>
                                 Last Price
                             </span>
-                            <span className={"tableHeader m-auto"}>24h</span>
                             <span className={"tableHeader fixWidth"} />
                         </div>
                         <div className={"d-flex w-100 m-auto flex-column"}>
@@ -128,7 +127,7 @@ const MainAppView = ({ match: { url } }) => {
                                         name={item}
                                         category={category}
                                         rate={rate}
-                                        url={url}
+                                        url={`/app/details/${item}`}
                                         favourites={favourites}
                                         handleFavouriteChange={
                                             handleFavouriteChange

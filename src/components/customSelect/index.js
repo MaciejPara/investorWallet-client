@@ -8,6 +8,7 @@ const CustomSelect = ({
     defaultValue,
     options,
     menuPlacement,
+    className = "",
 }) => {
     const colourStyles = {
         menuList: (provided, state) => ({
@@ -99,7 +100,7 @@ const CustomSelect = ({
         <Select
             isSearchable={false}
             menuPlacement={menuPlacement || "down"}
-            className={"baseOptionSelect"}
+            className={`baseOptionSelect ${className}`}
             defaultValue={defaultValue}
             options={options}
             onChange={handleChange || null}

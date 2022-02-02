@@ -11,21 +11,6 @@ const CategoryItem = ({
     dayChange = { difference: 0 },
     url,
 }) => {
-    const differenceCSSClass = () => {
-        const { difference } = dayChange || {};
-        let result = "";
-
-        if (difference === 0) {
-            result = "equal";
-        } else if (difference > 0) {
-            result = "plus";
-        } else {
-            result = "minus";
-        }
-
-        return result;
-    };
-
     return (
         <div className={"categoryItem row w-100 m-auto d-flex"}>
             <FavouriteComponent
@@ -36,16 +21,12 @@ const CategoryItem = ({
             <span className={"cell"}>{name}</span>
             {category && <span className={"cell"}>{category}</span>}
             <span className={"cell m-auto"}>{parseFloat(rate).toFixed(2)}</span>
-            <span className={`cell m-auto difference ${differenceCSSClass()}`}>
-                {dayChange.difference &&
-                    `${dayChange.difference}(${dayChange.differenceInPercent})`}
-            </span>
             <span className={"cell actions"}>
-                <Link to={`${url}`}>
+                <Link to={`/app/details/${name}`}>
                     <i className="fas fa-info-circle" />
                 </Link>
             </span>
-            <div id="box" className="box-shadow"></div>
+            <div id="box" className="box-shadow" />
         </div>
     );
 };

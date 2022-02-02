@@ -12,6 +12,7 @@ import { LOADER } from "../../redux/actions";
 const FavouritesComponent = React.lazy(() => import("./main"));
 const CategoryComponent = React.lazy(() => import("./category"));
 const WalletComponent = React.lazy(() => import("./wallet"));
+const InvestmentComponent = React.lazy(() => import("./investment"));
 
 const Views = (props) => {
     const {
@@ -69,6 +70,11 @@ const Views = (props) => {
                 <Switch>
                     <Route
                         exact
+                        path={`${url}/details/:id`}
+                        render={(props) => <InvestmentComponent {...props} />}
+                    />
+                    <Route
+                        exact
                         path={`${url}/`}
                         render={(props) => <WalletComponent {...props} />}
                     />
@@ -77,6 +83,7 @@ const Views = (props) => {
                         path={`${url}/favourites`}
                         render={(props) => <FavouritesComponent {...props} />}
                     />
+
                     {collections?.categories.map((item, key) => (
                         <Route
                             key={key}

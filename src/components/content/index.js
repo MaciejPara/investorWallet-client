@@ -62,7 +62,6 @@ const Content = ({ updateDate, data = [], match: { url } }) => {
                         />
                     </span>
                     <span className={"tableHeader m-auto"}>Price</span>
-                    <span className={"tableHeader m-auto"}>24h</span>
                     <span className={"tableHeader"} />
                 </div>
                 <div className={"d-flex w-100 m-auto flex-column"}>
