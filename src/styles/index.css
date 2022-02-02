@@ -193,6 +193,14 @@ a:hover, button:hover {
   opacity: 1;
 }
 
+.tableHeaderParentContainer {
+  min-width: 900px;
+}
+
+.tableBody {
+  min-width: 900px;
+}
+
 .tableHeaderContainer .tableHeader {
   padding: 5px 15px;
   width: 20%;
@@ -505,6 +513,38 @@ input[type=number] {
 }
 .detailsData-item:nth-child(even) {
   padding-left: 100px;
+}
+@media (max-width: 740px) {
+  .detailsData {
+    flex-direction: column;
+  }
+  .detailsData-item {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+  }
+  .detailsData-item:nth-child(odd) {
+    padding-right: 0;
+  }
+  .detailsData-item:nth-child(even) {
+    padding-left: 0;
+  }
+  .detailsData-item .label {
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 740px) {
+  .chartButtons {
+    display: flex;
+    flex-direction: column;
+  }
+  .chartButtons div {
+    margin: auto;
+  }
+  .chartButtons button {
+    margin: 15px auto 0 !important;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

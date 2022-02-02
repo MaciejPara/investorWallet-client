@@ -84,8 +84,7 @@ const InvestmentComponent = ({
             if (investment || currency) {
                 try {
                     const res = await fetch(
-                        `https://api.nbp.pl/api/exchangerates/rates/a/${currency}/
-                ${startDate}/${endDate}?format=JSON`
+                        `https://api.nbp.pl/api/exchangerates/rates/a/${currency}/${startDate}/${endDate}?format=JSON`
                     );
                     const json = await res.json();
 
@@ -189,7 +188,7 @@ const InvestmentComponent = ({
                     )}
                     {(currency || investment) && (
                         <div className={"chartContainer mt-3"}>
-                            <div className={"text-right mb-5"}>
+                            <div className={"chartButtons text-right mb-5"}>
                                 <CustomSelect
                                     className={"monthsSelect"}
                                     menuPlacement={"top"}
@@ -200,8 +199,8 @@ const InvestmentComponent = ({
                                     handleChange={({ value }) => {
                                         setDateDelay(-value);
                                         setDateDelayInit(value);
-                                        setStartDate(getDateFromNow(0));
-                                        setEndDate(getDateFromNow(-value));
+                                        setStartDate(getDateFromNow(-value));
+                                        setEndDate(getDateFromNow(0));
                                     }}
                                 />
                                 <button

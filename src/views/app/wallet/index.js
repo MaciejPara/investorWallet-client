@@ -368,7 +368,7 @@ const WalletComponent = () => {
             )}
             <div className={"transactionContainer tableContainer"}>
                 {transactions.length ? (
-                    <div>
+                    <div className={"tableHeaderParentContainer"}>
                         <div
                             className={
                                 "tableHeaderContainer row w-100 m-auto d-flex"
@@ -406,7 +406,7 @@ const WalletComponent = () => {
                 ) : (
                     ""
                 )}
-                <div className={"d-flex w-100 m-auto flex-column"}>
+                <div className={"tableBody"}>
                     {transactions
                         .filter(filterTransactions)
                         .map(

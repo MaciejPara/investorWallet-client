@@ -181,7 +181,6 @@ a, button{
 }
 
 .notification{
-  //display: none;
   position: absolute;
   right: 15px;
   top: 15px;
@@ -218,7 +217,15 @@ a, button{
   }
 }
 
-.tableHeaderContainer{
+.tableHeaderParentContainer {
+  min-width: 900px;
+}
+
+.tableBody {
+  min-width: 900px;
+}
+
+.tableHeaderContainer {
   .tableHeader{
     padding: 5px 15px;
     width: 20%;
@@ -459,7 +466,7 @@ a, button{
 .transactionContainer{
   padding: 0 0 50px 0;
 
-  .tableHeader{
+  .tableHeader {
     width: calc(100% / 7);
     margin: auto;
   }
@@ -566,6 +573,42 @@ input[type=number] {
 
     &:nth-child(even) {
       padding-left: 100px;
+    }
+  }
+
+  @media (max-width: 740px) {
+    flex-direction: column;
+
+    &-item {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      &:nth-child(odd) {
+        padding-right: 0;
+      }
+
+      &:nth-child(even) {
+        padding-left: 0;
+      }
+
+      .label {
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+.chartButtons {
+  @media (max-width: 740px) {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      margin: auto;
+    }
+
+    button {
+      margin: 15px auto 0 !important;
     }
   }
 }
